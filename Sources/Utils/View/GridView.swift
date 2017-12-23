@@ -8,7 +8,6 @@ class GridView: UIView {
   lazy var topView: UIView = self.makeTopView()
   lazy var bottomView: UIView = self.makeBottomView()
   lazy var bottomBlurView: UIVisualEffectView = self.makeBottomBlurView()
-  lazy var arrowButton: ArrowButton = self.makeArrowButton()
   lazy var collectionView: UICollectionView = self.makeCollectionView()
   lazy var closeButton: UIButton = self.makeCloseButton()
   lazy var doneButton: UIButton = self.makeDoneButton()
@@ -34,11 +33,7 @@ class GridView: UIView {
     [collectionView, bottomView, topView, emptyView].forEach {
       addSubview($0)
     }
-
-    [closeButton, arrowButton].forEach {
-      topView.addSubview($0)
-    }
-
+    
     [bottomBlurView, doneButton].forEach {
       bottomView.addSubview($0 as! UIView)
     }
@@ -60,9 +55,6 @@ class GridView: UIView {
     closeButton.g_pin(on: .left)
     closeButton.g_pin(size: CGSize(width: 40, height: 40))
 
-    arrowButton.g_pinCenter()
-    arrowButton.g_pin(height: 40)
-
     doneButton.g_pin(on: .centerY)
     doneButton.g_pin(on: .right, constant: -38)
   }
@@ -75,7 +67,7 @@ class GridView: UIView {
 
     return view
   }
-
+    
   func makeBottomView() -> UIView {
     let view = UIView()
 
@@ -103,9 +95,11 @@ class GridView: UIView {
 
   func makeCloseButton() -> UIButton {
     let button = UIButton(type: .custom)
-    button.setImage(Bundle.image("gallery_close")?.withRenderingMode(.alwaysTemplate), for: UIControlState())
-    button.tintColor = Config.Grid.CloseButton.tintColor
-
+//    button.setImage(Bundle.image("gallery_close")?.withRenderingMode(.alwaysTemplate), for: UIControlState())
+    
+    button.setTitle("Album", for: .normal)
+    button.setTitleColor(Config.Grid.CloseButton.tintColor, for: .normal)
+//    button.tintColor = Config.Grid.CloseButton.tintColor
     return button
   }
 

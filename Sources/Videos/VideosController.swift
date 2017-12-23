@@ -41,15 +41,15 @@ class VideosController: UIViewController {
     infoLabel.g_pin(on: .left, view: videoBox, on: .right, constant: 11)
     infoLabel.g_pin(on: .right, constant: -50)
 
-    gridView.closeButton.addTarget(self, action: #selector(closeButtonTouched(_:)), for: .touchUpInside)
+//    gridView.closeButton.addTarget(self, action: #selector(closeButtonTouched(_:)), for: .touchUpInside)
     gridView.doneButton.addTarget(self, action: #selector(doneButtonTouched(_:)), for: .touchUpInside)
 
     gridView.collectionView.dataSource = self
     gridView.collectionView.delegate = self
     gridView.collectionView.register(VideoCell.self, forCellWithReuseIdentifier: String(describing: VideoCell.self))
 
-    gridView.arrowButton.updateText("Gallery.AllVideos".g_localize(fallback: "ALL VIDEOS"))
-    gridView.arrowButton.arrow.isHidden = true
+//    gridView.arrowButton.updateText("Gallery.AllVideos".g_localize(fallback: "ALL VIDEOS"))
+//    gridView.arrowButton.arrow.isHidden = true
   }
 
   // MARK: - Action

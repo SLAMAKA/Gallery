@@ -31,10 +31,8 @@ class ViewController: UIViewController, LightboxControllerDismissalDelegate, Gal
   }
 
   func buttonTouched(_ button: UIButton) {
-    gallery = GalleryController()
-    gallery.delegate = self
-
-    present(gallery, animated: true, completion: nil)
+    let navigationController = UINavigationController.init(rootViewController: DropdownController())
+    self.present(navigationController, animated: true, completion: nil)
   }
 
   // MARK: - LightboxControllerDismissalDelegate

@@ -2,117 +2,84 @@ import UIKit
 import Photos
 
 protocol DropdownControllerDelegate: class {
-  func dropdownController(_ controller: DropdownController, didSelect album: Album)
+    func dropdownController (_ controller: DropdownController, didSelect album: Album)
 }
 
-class DropdownController: UIViewController {
+open class DropdownController: UIViewController {
 
-  lazy var tableView: UITableView = self.makeTableView()
-  lazy var blurView: UIVisualEffectView = self.makeBlurView()
+    lazy var tableView: UITableView = self.makeTableView()
+    var animating: Bool = false
+    var expanding: Bool = false
+    var albums: [ Album ] = []
+    let imageLibrary = ImagesLibrary.init()
+    var topConstraint: NSLayoutConstraint?
+    weak var delegate: DropdownControllerDelegate?
 
-  var animating: Bool = false
-  var expanding: Bool = false
-  var selectedIndex: Int = 0
+    open override func viewDidLoad () {
+        super.viewDidLoad()
+        setup()
+        imageLibrary.reload { [ unowned self ]_ in
+            self.albums = self.imageLibrary.albums
 
-  var albums: [Album] = [] {
-    didSet {
-      selectedIndex = 0
+            if let album = self.albums.first {
+                self.openImagesContoller(with: album, false)
+            }
+            self.tableView.reloadData()
+        }
+
+
     }
-  }
 
-  var topConstraint: NSLayoutConstraint?
-  weak var delegate: DropdownControllerDelegate?
+    // MARK: - Setup
 
-  // MARK: - Initialization
+    func setup () {
 
-  // MARK: - Life cycle
+        view.addSubview(tableView)
+        tableView.register(AlbumCell.self, forCellReuseIdentifier: String(describing: AlbumCell.self))
+        tableView.g_pinEdges()
+    }
 
-  override func viewDidLoad() {
-    super.viewDidLoad()
+    func makeTableView () -> UITableView {
+        let tableView = UITableView()
+        tableView.tableFooterView = UIView()
+        tableView.rowHeight = 84
+        tableView.dataSource = self
+        tableView.delegate = self
+        return tableView
+    }
 
-    setup()
-  }
-
-  // MARK: - Setup
-
-  func setup() {
-    view.backgroundColor = UIColor.clear
-    tableView.backgroundColor = UIColor.clear
-    tableView.backgroundView = blurView
-    
-    view.addSubview(tableView)
-    tableView.register(AlbumCell.self, forCellReuseIdentifier: String(describing: AlbumCell.self))
-
-    tableView.g_pinEdges()
-  }
-
-  // MARK: - Logic
-
-  func toggle() {
-    guard !animating else { return }
-
-    animating = true
-    expanding = !expanding
-
-    self.topConstraint?.constant = expanding ? 1 : view.bounds.size.height
-
-    UIView.animate(withDuration: 0.25, delay: 0, options: UIViewAnimationOptions(), animations: {
-      self.view.superview?.layoutIfNeeded()
-    }, completion: { finished in
-      self.animating = false
-    })
-  }
-
-  // MARK: - Controls
-
-  func makeTableView() -> UITableView {
-    let tableView = UITableView()
-    tableView.tableFooterView = UIView()
-    tableView.separatorStyle = .none
-    tableView.rowHeight = 84
-
-    tableView.dataSource = self
-    tableView.delegate = self
-
-    return tableView
-  }
-
-  func makeBlurView() -> UIVisualEffectView {
-    let view = UIVisualEffectView(effect: UIBlurEffect(style: .extraLight))
-
-    return view
-  }
+    func openImagesContoller(with album: Album, _ animate: Bool = true){
+        let imageViewcontroller = ImagesController.init()
+        imageViewcontroller.selectedAlbum = album
+        self.navigationController?.pushViewController(imageViewcontroller, animated: animate)
+    }
 }
 
 extension DropdownController: UITableViewDataSource, UITableViewDelegate {
 
-  // MARK: - UITableViewDataSource
+    // MARK: - UITableViewDataSource
 
-  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return albums.count
-  }
+    public func tableView (_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return albums.count
+    }
 
-  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: AlbumCell.self), for: indexPath)
-      as! AlbumCell
+    public func tableView (_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: AlbumCell.self), for: indexPath)
+        as! AlbumCell
 
-    let album = albums[(indexPath as NSIndexPath).row]
-    cell.configure(album)
-    cell.backgroundColor = UIColor.clear
+        let album = albums[ (indexPath as NSIndexPath).row ]
+        cell.configure(album)
+        cell.backgroundColor = UIColor.clear
 
-    return cell
-  }
+        return cell
+    }
 
-  // MARK: - UITableViewDelegate
+    // MARK: - UITableViewDelegate
 
-  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    tableView.deselectRow(at: indexPath, animated: true)
+    public func tableView (_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
 
-    let album = albums[(indexPath as NSIndexPath).row]
-    delegate?.dropdownController(self, didSelect: album)
-
-    selectedIndex = (indexPath as NSIndexPath).row
-    tableView.reloadData()
-  }
+        self.openImagesContoller(with: albums[ (indexPath as NSIndexPath).row ])
+    }
 }
 
