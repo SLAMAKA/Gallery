@@ -93,7 +93,6 @@ extension ImagesController: CartDelegate {
     func cart (_ cart: Cart, didRemove image: Image) {
         self.gridView.updateCount()
         self.refreshView()
-        
         configureFrameViews()
     }
 

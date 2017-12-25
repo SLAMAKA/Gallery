@@ -5,6 +5,5 @@ platform :ios, '8.0'
 target 'GalleryDemo' do
  pod 'Gallery', path: '../../'
  pod 'Sugar', git: 'https://github.com/hyperoslo/Sugar.git', branch: 'master'
-# pod 'Hue', git: 'https://github.com/hyperoslo/Hue.git', branch: 'master'
 end
 

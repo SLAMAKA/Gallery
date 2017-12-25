@@ -61,6 +61,10 @@ public class Cart {
       delegate.cartDidReload(self)
     }
   }
+    
+    func getIndex(_ image: Image) -> Int? {
+        return self.images.index(where: {$0 == image})
+    }
 
   // MARK: - Reset
 
