@@ -33,7 +33,7 @@ open class DropdownController: UIViewController {
     // MARK: - Setup
 
     func setup () {
-
+        self.navigationItem.title = "Albums".g_localize(fallback: "Albums")
         view.addSubview(tableView)
         tableView.register(AlbumCell.self, forCellReuseIdentifier: String(describing: AlbumCell.self))
         tableView.g_pinEdges()

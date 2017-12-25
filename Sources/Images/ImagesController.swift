@@ -33,29 +33,37 @@ public class ImagesController: UIViewController {
         stackView.g_pin(size: CGSize(width: 56, height: 56))
         gridView.doneButton.addTarget(self, action: #selector(doneButtonTouched(_:)), for: .touchUpInside)
         stackView.addTarget(self, action: #selector(stackViewTouched(_:)), for: .touchUpInside)
+        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "Cancel".g_localize(fallback: "Cancel"), style: .plain, target: self, action: #selector(self.cancelBarButtonTapped(_:)))
 
     }
 
-
+//    MARK: - Actions
     func doneButtonTouched (_ button: UIButton) {
         EventHub.shared.doneWithImages?()
     }
+    
+    func cancelBarButtonTapped(_ sender: UIBarButtonItem){
+        EventHub.shared.close?()
+    }
 
     func stackViewTouched (_ stackView: StackView) {
-//        EventHub.shared.stackViewTouched?()
-        
-        let controller = LightboxController(images: Cart.shared.UIImages().map({LightboxImage.init(image: $0)}))
+        let images = Cart.shared.UIImages()
+        LightboxConfig.SelectedFileCountLabel.text = "\(images.count) selected"
+        let controller = LightboxController(images: images.map({LightboxImage.init(image: $0)}))
         controller.dynamicBackground = true
+        controller.delegate = self
         self.present(controller, animated: true, completion: nil)
     }
 
     // MARK: - Logic
-
     func show (album: Album) {
-        items = album.items
-        gridView.collectionView.reloadData()
-        gridView.collectionView.g_scrollToTop()
-        gridView.emptyView.isHidden = !items.isEmpty
+        self.items = album.items
+        self.gridView.collectionView.reloadData()
+        self.gridView.collectionView.g_scrollToTop()
+        self.gridView.emptyView.isHidden = !self.items.isEmpty
+        
+        self.navigationItem.title = album.collection.localizedTitle
     }
 
     func refreshSelectedAlbum () {
@@ -71,6 +79,7 @@ public class ImagesController: UIViewController {
         gridView.collectionView.g_updateBottomInset(hasImages ? gridView.bottomView.frame.size.height : 0)
     }
 
+//    MARK: - View maker
     func makeGridView () -> GridView {
         let view = GridView()
         view.bottomView.alpha = 0
@@ -85,32 +94,28 @@ public class ImagesController: UIViewController {
 }
 
 extension ImagesController: CartDelegate {
-
     func cart (_ cart: Cart, didAdd image: Image, newlyTaken: Bool) {
-        stackView.reload(cart.images, added: true)
-        refreshView()
-
+        self.stackView.reload(cart.images, added: true)
+        self.refreshView()
         if newlyTaken {
-            refreshSelectedAlbum()
+            self.refreshSelectedAlbum()
         }
     }
 
     func cart (_ cart: Cart, didRemove image: Image) {
-        stackView.reload(cart.images)
-        refreshView()
+        self.stackView.reload(cart.images)
+        self.refreshView()
     }
 
     func cartDidReload (_ cart: Cart) {
-        stackView.reload(cart.images)
-        refreshView()
-        refreshSelectedAlbum()
+        self.stackView.reload(cart.images)
+        self.refreshView()
+        self.refreshSelectedAlbum()
     }
 }
 
 extension ImagesController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-
     // MARK: - UICollectionViewDataSource
-
     public func collectionView (_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return items.count
     }
@@ -128,7 +133,6 @@ extension ImagesController: UICollectionViewDataSource, UICollectionViewDelegate
     }
 
     // MARK: - UICollectionViewDelegateFlowLayout
-
     public func collectionView (_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 
         let size = (collectionView.bounds.size.width - (Config.Grid.Dimension.columnCount - 1) * Config.Grid.Dimension.cellSpacing)
@@ -165,5 +169,24 @@ extension ImagesController: UICollectionViewDataSource, UICollectionViewDelegate
         } else {
             cell.frameView.alpha = 0
         }
+    }
+}
+
+extension ImagesController: LightboxControllerDelegate {
+    
+    public func lightboxControllerWillCancel(_ controller: LightboxController) {
+        
+    }
+    
+    public func lightboxControllerWillDismiss(_ controller: LightboxController) {
+        
+    }
+    
+    public func lightboxController(_ controller: LightboxController, didMoveToPage page: Int) {
+        
+    }
+    
+    public func lightboxController(_ controller: LightboxController, didTouch image: LightboxImage, at index: Int) {
+        
     }
 }
