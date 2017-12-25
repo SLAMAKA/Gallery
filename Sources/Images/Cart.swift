@@ -49,6 +49,10 @@ public class Cart {
       delegate.cart(self, didRemove: image)
     }
   }
+    
+    func remove(_ index: Int){
+        self.remove(self.images[index])
+    }
 
   func reload(_ images: [Image]) {
     self.images = images

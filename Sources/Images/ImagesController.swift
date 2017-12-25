@@ -93,6 +93,8 @@ extension ImagesController: CartDelegate {
     func cart (_ cart: Cart, didRemove image: Image) {
         self.gridView.updateCount()
         self.refreshView()
+        
+        configureFrameViews()
     }
 
     func cartDidReload (_ cart: Cart) {
@@ -164,6 +166,7 @@ extension ImagesController: LightboxControllerDelegate {
     
     public func lightboxControllerWillCancel(_ controller: LightboxController) {
         Cart.shared.images.removeAll()
+        self.gridView.collectionView.reloadData()
         self.gridView.updateCount()
         self.refreshView()
     }
