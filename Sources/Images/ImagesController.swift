@@ -44,7 +44,9 @@ public class ImagesController: UIViewController {
     func stackViewTouched (_ stackView: StackView) {
 //        EventHub.shared.stackViewTouched?()
         
-        
+        let controller = LightboxController(images: Cart.shared.UIImages().map({LightboxImage.init(image: $0)}))
+        controller.dynamicBackground = true
+        self.present(controller, animated: true, completion: nil)
     }
 
     // MARK: - Logic
@@ -104,13 +106,6 @@ extension ImagesController: CartDelegate {
         refreshSelectedAlbum()
     }
 }
-
-//extension ImagesController: DropdownControllerDelegate {
-//  func dropdownController(_ controller: DropdownController, didSelect album: Album) {
-//    selectedAlbum = album
-//    show(album: album)
-//  }
-//}
 
 extension ImagesController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
