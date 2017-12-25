@@ -4,10 +4,8 @@ import Photos
 public class ImagesController: UIViewController {
     fileprivate lazy var gridView: GridView = self.makeGridView()
     fileprivate lazy var stackView: StackView = self.makeStackView()
-    
     fileprivate var items: [ Image ] = []
     var selectedAlbum: Album?
-    fileprivate let once = Once()
 
     override public func viewDidLoad () {
         super.viewDidLoad()
@@ -15,10 +13,10 @@ public class ImagesController: UIViewController {
 
         if let currentAlbum = self.selectedAlbum {
             self.show(album: currentAlbum)
+            self.refreshView()
         }
     }
-
-    // MARK: - Setup
+    
     func setup () {
         Cart.shared.add(delegate: self)
         view.backgroundColor = UIColor.white
@@ -44,7 +42,9 @@ public class ImagesController: UIViewController {
     }
 
     func stackViewTouched (_ stackView: StackView) {
-        EventHub.shared.stackViewTouched?()
+//        EventHub.shared.stackViewTouched?()
+        
+        
     }
 
     // MARK: - Logic
@@ -57,15 +57,12 @@ public class ImagesController: UIViewController {
     }
 
     func refreshSelectedAlbum () {
-        
         if let selectedAlbum = selectedAlbum {
             selectedAlbum.reload()
             show(album: selectedAlbum)
         }
     }
-
-    // MARK: - View
-
+    
     func refreshView () {
         let hasImages = !Cart.shared.images.isEmpty
         gridView.bottomView.g_fade(visible: hasImages)
@@ -75,14 +72,13 @@ public class ImagesController: UIViewController {
     func makeGridView () -> GridView {
         let view = GridView()
         view.bottomView.alpha = 0
-
         return view
     }
 
     func makeStackView () -> StackView {
-        let view = StackView()
-
-        return view
+        let stackView = StackView()
+        stackView.reload(Cart.shared.images)
+        return StackView()
     }
 }
 

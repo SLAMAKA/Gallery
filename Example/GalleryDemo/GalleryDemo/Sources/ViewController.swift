@@ -1,10 +1,9 @@
 import UIKit
 import Gallery
-import Lightbox
 import AVFoundation
 import AVKit
 
-class ViewController: UIViewController, LightboxControllerDismissalDelegate, GalleryControllerDelegate {
+class ViewController: UIViewController {
 
   var button: UIButton!
   var gallery: GalleryController!
@@ -35,13 +34,6 @@ class ViewController: UIViewController, LightboxControllerDismissalDelegate, Gal
     self.present(navigationController, animated: true, completion: nil)
   }
 
-  // MARK: - LightboxControllerDismissalDelegate
-
-  func lightboxControllerWillDismiss(_ controller: LightboxController) {
-    gallery.reload(controller.images.flatMap({ $0.image }))
-  }
-
-  // MARK: - GalleryControllerDelegate
 
   func galleryControllerDidCancel(_ controller: GalleryController) {
     controller.dismiss(animated: true, completion: nil)
@@ -68,18 +60,18 @@ class ViewController: UIViewController, LightboxControllerDismissalDelegate, Gal
     }
   }
 
-  func galleryController(_ controller: GalleryController, didSelectImages images: [UIImage]) {
-    controller.dismiss(animated: true, completion: nil)
-    gallery = nil
-  }
+//  func galleryController(_ controller: GalleryController, requestLightbox images: [UIImage]) {
+//    controller.dismiss(animated: true, completion: nil)
+//    gallery = nil
+//  }
 
-  func galleryController(_ controller: GalleryController, requestLightbox images: [UIImage]) {
-    LightboxConfig.DeleteButton.enabled = true
-
-    let lightbox = LightboxController(images: images.map({ LightboxImage(image: $0) }), startIndex: 0)
-    lightbox.dismissalDelegate = self
-
-    controller.dismiss(animated: true, completion: nil)
-  }
+//  func galleryController(_ controller: GalleryController, requestLightbox images: [UIImage]) {
+//    LightboxConfig.DeleteButton.enabled = true
+//
+//    let lightbox = LightboxController(images: images.map({ LightboxImage(image: $0) }), startIndex: 0)
+//    lightbox.dismissalDelegate = self
+//
+//    controller.dismiss(animated: true, completion: nil)
+////  }
 }
 
