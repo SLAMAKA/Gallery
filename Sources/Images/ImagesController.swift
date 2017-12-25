@@ -3,7 +3,6 @@ import Photos
 
 public class ImagesController: UIViewController {
     fileprivate lazy var gridView: GridView = self.makeGridView()
-    fileprivate lazy var stackView: StackView = self.makeStackView()
     fileprivate var items: [ Image ] = []
     var selectedAlbum: Album?
 
@@ -25,29 +24,14 @@ public class ImagesController: UIViewController {
         gridView.collectionView.dataSource = self
         gridView.collectionView.delegate = self
         gridView.collectionView.register(ImageCell.self, forCellWithReuseIdentifier: String(describing: ImageCell.self))
-        
-        gridView.bottomView.addSubview(stackView)
         gridView.g_pinEdges()
-        stackView.g_pin(on: .centerY, constant: -4)
-        stackView.g_pin(on: .left, constant: 38)
-        stackView.g_pin(size: CGSize(width: 56, height: 56))
         gridView.doneButton.addTarget(self, action: #selector(doneButtonTouched(_:)), for: .touchUpInside)
-        stackView.addTarget(self, action: #selector(stackViewTouched(_:)), for: .touchUpInside)
-        
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "Cancel".g_localize(fallback: "Cancel"), style: .plain, target: self, action: #selector(self.cancelBarButtonTapped(_:)))
-
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "", style: .plain, target: self, action: #selector(self.cancelBarButtonTapped(_:)))
     }
 
 //    MARK: - Actions
     func doneButtonTouched (_ button: UIButton) {
-        EventHub.shared.doneWithImages?()
-    }
-    
-    func cancelBarButtonTapped(_ sender: UIBarButtonItem){
-        EventHub.shared.close?()
-    }
-
-    func stackViewTouched (_ stackView: StackView) {
+//        EventHub.shared.doneWithImages?()
         let images = Cart.shared.UIImages()
         LightboxConfig.SelectedFileCountLabel.text = "\(images.count) selected"
         let controller = LightboxController(images: images.map({LightboxImage.init(image: $0)}))
@@ -55,7 +39,15 @@ public class ImagesController: UIViewController {
         controller.delegate = self
         self.present(controller, animated: true, completion: nil)
     }
-
+    
+    func cancelBarButtonTapped(_ sender: UIBarButtonItem){
+        if Cart.shared.images.isEmpty {
+            EventHub.shared.close?()
+        } else{
+            self.doneButtonTouched(self.gridView.doneButton)
+        }
+    }
+    
     // MARK: - Logic
     func show (album: Album) {
         self.items = album.items
@@ -75,6 +67,7 @@ public class ImagesController: UIViewController {
     
     func refreshView () {
         let hasImages = !Cart.shared.images.isEmpty
+        self.navigationItem.rightBarButtonItem?.title = hasImages ? "Done".g_localize(fallback: "Done") : "Cancel".g_localize(fallback: "Cancel")
         gridView.bottomView.g_fade(visible: hasImages)
         gridView.collectionView.g_updateBottomInset(hasImages ? gridView.bottomView.frame.size.height : 0)
     }
@@ -85,17 +78,12 @@ public class ImagesController: UIViewController {
         view.bottomView.alpha = 0
         return view
     }
-
-    func makeStackView () -> StackView {
-        let stackView = StackView()
-        stackView.reload(Cart.shared.images)
-        return StackView()
-    }
+    
 }
 
 extension ImagesController: CartDelegate {
     func cart (_ cart: Cart, didAdd image: Image, newlyTaken: Bool) {
-        self.stackView.reload(cart.images, added: true)
+        self.gridView.updateCount()
         self.refreshView()
         if newlyTaken {
             self.refreshSelectedAlbum()
@@ -103,12 +91,12 @@ extension ImagesController: CartDelegate {
     }
 
     func cart (_ cart: Cart, didRemove image: Image) {
-        self.stackView.reload(cart.images)
+        self.gridView.updateCount()
         self.refreshView()
     }
 
     func cartDidReload (_ cart: Cart) {
-        self.stackView.reload(cart.images)
+        self.gridView.updateCount()
         self.refreshView()
         self.refreshSelectedAlbum()
     }
@@ -175,7 +163,9 @@ extension ImagesController: UICollectionViewDataSource, UICollectionViewDelegate
 extension ImagesController: LightboxControllerDelegate {
     
     public func lightboxControllerWillCancel(_ controller: LightboxController) {
-        
+        Cart.shared.images.removeAll()
+        self.gridView.updateCount()
+        self.refreshView()
     }
     
     public func lightboxControllerWillDismiss(_ controller: LightboxController) {
