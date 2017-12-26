@@ -1,6 +1,6 @@
 import UIKit
 
-open class LightboxImage {
+open class ImageModel {
 
   open fileprivate(set) var image: UIImage?
   open fileprivate(set) var imagePlaceholder: UIImage?
@@ -36,7 +36,7 @@ open class LightboxImage {
       imageView.image = image
       completion?(image)
     } else if let imageURL = imageURL {
-      LightboxConfig.loadImage(imageView, imageURL, httpHeaders) { error, image in
+      MediaViewerConfig.loadImage(imageView, imageURL, httpHeaders) { error, image in
         completion?(image)
       }
     }

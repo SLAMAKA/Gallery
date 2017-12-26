@@ -11,8 +11,8 @@ open class HeaderView: UIView {
     open fileprivate(set) lazy var conversationLabel: UILabel = { [unowned self] in
         let label = UILabel.init(frame: CGRect.zero)
                 
-        label.attributedText = NSAttributedString.init(string: LightboxConfig.ConversationNameLabel.text,
-                                                       attributes: LightboxConfig.ConversationNameLabel.textAttributes)
+        label.attributedText = NSAttributedString.init(string: MediaViewerConfig.ConversationNameLabel.text,
+                                                       attributes: MediaViewerConfig.ConversationNameLabel.textAttributes)
         label.sizeToFit()
         return label
     }()
@@ -35,7 +35,7 @@ open class HeaderView: UIView {
     open fileprivate(set) lazy var fileCountLabel: UILabel = { [unowned self] in
         let label = UILabel.init(frame: CGRect.zero)
         label.attributedText = NSAttributedString.init(string: "\(Cart.shared.images.count) selected",
-                                                       attributes: LightboxConfig.SelectedFileCountLabel.textAttributes)
+                                                       attributes: MediaViewerConfig.SelectedFileCountLabel.textAttributes)
         label.sizeToFit()
         return label
         }()
@@ -57,7 +57,7 @@ open class HeaderView: UIView {
 
     func updateSelectedCountLabel(){
         self.fileCountLabel.attributedText = NSAttributedString.init(string: "\(Cart.shared.images.count) selected",
-            attributes: LightboxConfig.SelectedFileCountLabel.textAttributes)
+            attributes: MediaViewerConfig.SelectedFileCountLabel.textAttributes)
         self.fileCountLabel.sizeToFit()
     }
     

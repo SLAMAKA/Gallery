@@ -2,7 +2,7 @@ import UIKit
 import AVKit
 import AVFoundation
 
-open class LightboxConfig {
+open class MediaViewerConfig {
 
   public typealias LoadImageCompletion = (_ error: NSError?, _ image: UIImage?) -> Void
 

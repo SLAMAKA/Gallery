@@ -1,11 +1,13 @@
 import UIKit
 import Photos
 
-protocol DropdownControllerDelegate: class {
-    func dropdownController (_ controller: DropdownController, didSelect album: Album)
+public protocol DropdownControllerDelegate: class {
+    func dropdownController(_ controller: DropdownController, didSelectImages images: [UIImage])
+    func dropdownController(_ controller: DropdownController, didSelectVideo video: Video)
+    func dropdownControllerDidCancel(_ controller: DropdownController)
 }
 
-open class DropdownController: UIViewController {
+public class DropdownController: UIViewController {
 
     lazy var tableView: UITableView = self.makeTableView()
     var animating: Bool = false
@@ -13,7 +15,7 @@ open class DropdownController: UIViewController {
     var albums: [ Album ] = []
     let imageLibrary = ImagesLibrary.init()
     var topConstraint: NSLayoutConstraint?
-    weak var delegate: DropdownControllerDelegate?
+    public weak var delegate: DropdownControllerDelegate?
 
     open override func viewDidLoad () {
         super.viewDidLoad()
@@ -26,8 +28,6 @@ open class DropdownController: UIViewController {
             }
             self.tableView.reloadData()
         }
-
-
     }
 
     // MARK: - Setup
@@ -37,6 +37,30 @@ open class DropdownController: UIViewController {
         view.addSubview(tableView)
         tableView.register(AlbumCell.self, forCellReuseIdentifier: String(describing: AlbumCell.self))
         tableView.g_pinEdges()
+        
+        EventHub.shared.close = { [weak self] in
+            if let strongSelf = self {
+                strongSelf.dismiss(animated: true, completion: nil)
+                strongSelf.delegate?.dropdownControllerDidCancel(strongSelf)
+                Cart.shared.images.removeAll()
+            }
+        }
+        
+        EventHub.shared.doneWithImages = { [weak self] in
+            if let strongSelf = self {
+                strongSelf.dismiss(animated: true, completion: nil)
+                strongSelf.delegate?.dropdownController(strongSelf, didSelectImages: Cart.shared.UIImages())
+                Cart.shared.images.removeAll()
+            }
+        }
+        
+        EventHub.shared.doneWithVideos = { [weak self] in
+            if let strongSelf = self, let video = Cart.shared.video {
+                strongSelf.dismiss(animated: true, completion: nil)
+                strongSelf.delegate?.dropdownController(strongSelf, didSelectVideo: video)
+                Cart.shared.images.removeAll()
+            }
+        }
     }
 
     func makeTableView () -> UITableView {

@@ -3,10 +3,7 @@ import AVFoundation
 
 public protocol GalleryControllerDelegate: class {
 
-  func galleryController(_ controller: GalleryController, didSelectImages images: [UIImage])
-  func galleryController(_ controller: GalleryController, didSelectVideo video: Video)
-  func galleryController(_ controller: GalleryController, requestLightbox images: [UIImage])
-  func galleryControllerDidCancel(_ controller: GalleryController)
+  
 }
 
 public class GalleryController: UIViewController, PermissionControllerDelegate {
@@ -101,29 +98,7 @@ public class GalleryController: UIViewController, PermissionControllerDelegate {
   // MARK: - Setup
 
   func setup() {
-    EventHub.shared.close = { [weak self] in
-      if let strongSelf = self {
-        strongSelf.delegate?.galleryControllerDidCancel(strongSelf)
-      }
-    }
-
-    EventHub.shared.doneWithImages = { [weak self] in
-      if let strongSelf = self {
-        strongSelf.delegate?.galleryController(strongSelf, didSelectImages: Cart.shared.UIImages())
-      }
-    }
-
-    EventHub.shared.doneWithVideos = { [weak self] in
-      if let strongSelf = self, let video = Cart.shared.video {
-        strongSelf.delegate?.galleryController(strongSelf, didSelectVideo: video)
-      }
-    }
-
-    EventHub.shared.stackViewTouched = { [weak self] in
-      if let strongSelf = self {
-        strongSelf.delegate?.galleryController(strongSelf, requestLightbox: Cart.shared.UIImages())
-      }
-    }
+    
   }
 
   // MARK: - PermissionControllerDelegate

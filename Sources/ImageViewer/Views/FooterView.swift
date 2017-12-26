@@ -15,14 +15,14 @@ open class FooterView: UIView {
     
     open fileprivate(set) lazy var sendButton: UIButton = { [unowned self] in
         let title = NSAttributedString(
-            string: LightboxConfig.SendButton.text,
-            attributes: LightboxConfig.SendButton.textAttributes)
+            string: MediaViewerConfig.SendButton.text,
+            attributes: MediaViewerConfig.SendButton.textAttributes)
         
         let button = UIButton(type: .system)
         
         button.setAttributedTitle(title, for: UIControlState())
         
-        if let size = LightboxConfig.CloseButton.size {
+        if let size = MediaViewerConfig.CloseButton.size {
             button.frame.size = size
         } else {
             button.sizeToFit()
@@ -31,25 +31,25 @@ open class FooterView: UIView {
         button.addTarget(self, action: #selector(sendButtonDidPress(_:)),
                          for: .touchUpInside)
         
-        if let image = LightboxConfig.CloseButton.image {
+        if let image = MediaViewerConfig.CloseButton.image {
             button.setBackgroundImage(image, for: UIControlState())
         }
         
-        button.isHidden = !LightboxConfig.SendButton.enabled
+        button.isHidden = !MediaViewerConfig.SendButton.enabled
         
         return button
         }()
     
     open fileprivate(set) lazy var addButton: UIButton = { [unowned self] in
         let title = NSAttributedString(
-            string: LightboxConfig.AddButton.text,
-            attributes: LightboxConfig.AddButton.textAttributes)
+            string: MediaViewerConfig.AddButton.text,
+            attributes: MediaViewerConfig.AddButton.textAttributes)
         
         let button = UIButton(type: .system)
         
         button.setAttributedTitle(title, for: UIControlState())
         
-        if let image = LightboxConfig.AddButton.image {
+        if let image = MediaViewerConfig.AddButton.image {
             button.setImage(image, for: .normal)
         }
         button.sizeToFit()
@@ -57,38 +57,38 @@ open class FooterView: UIView {
         
         button.addTarget(self, action: #selector(addButtonDidPress(_:)),
                          for: .touchUpInside)
-        button.isHidden = !LightboxConfig.AddButton.enabled
+        button.isHidden = !MediaViewerConfig.AddButton.enabled
         
         return button
         }()
     
     open fileprivate(set) lazy var deleteButton: UIButton = { [unowned self] in
         let title = NSAttributedString(
-            string: LightboxConfig.DeleteButton.text,
-            attributes: LightboxConfig.DeleteButton.textAttributes)
+            string: MediaViewerConfig.DeleteButton.text,
+            attributes: MediaViewerConfig.DeleteButton.textAttributes)
         
         let button = UIButton(type: .system)
         
         button.setAttributedTitle(title, for: UIControlState())
         
-        if let size = LightboxConfig.DeleteButton.size {
+        if let size = MediaViewerConfig.DeleteButton.size {
             button.frame.size = size
         } else {
             button.sizeToFit()
         }
         
-        if let image = LightboxConfig.DeleteButton.image {
+        if let image = MediaViewerConfig.DeleteButton.image {
             button.setImage(image, for: .normal)
         }
         
         button.addTarget(self, action: #selector(deleteButtonDidPress(_:)),
                          for: .touchUpInside)
         
-        if let image = LightboxConfig.AddButton.image {
+        if let image = MediaViewerConfig.AddButton.image {
             button.setBackgroundImage(image, for: UIControlState())
         }
         
-        button.isHidden = !LightboxConfig.AddButton.enabled
+        button.isHidden = !MediaViewerConfig.AddButton.enabled
         
         return button
         }()
@@ -97,7 +97,7 @@ open class FooterView: UIView {
         
         let textView = ExpandableTextView()
 
-        textView.setTextPlaceholder(LightboxConfig.MessageTextView.placeholderText)
+        textView.setTextPlaceholder(MediaViewerConfig.MessageTextView.placeholderText)
         textView.setTextPlaceholderFont(UIFont.systemFont(ofSize: 15))
         textView.setTextPlaceholderColor(UIColor.white)
         textView.textColor = .white
@@ -106,7 +106,9 @@ open class FooterView: UIView {
         textView.spellCheckingType = .yes
         textView.autocorrectionType = .yes
         textView.attributedText = NSAttributedString(string: "",
-                                                     attributes: LightboxConfig.MessageTextView.textAttributes)
+                                                     attributes: MediaViewerConfig.MessageTextView.textAttributes)
+        
+        textView.isEditable = false
         
         textView.backgroundColor = UIColor.init(red: 1, green: 1, blue: 1, alpha: 0.24)
         
@@ -115,14 +117,14 @@ open class FooterView: UIView {
     
     open fileprivate(set) lazy var cancelButton: UIButton = { [unowned self] in
         let title = NSAttributedString(
-            string: LightboxConfig.CancelButton.text,
-            attributes: LightboxConfig.CancelButton.textAttributes)
+            string: MediaViewerConfig.CancelButton.text,
+            attributes: MediaViewerConfig.CancelButton.textAttributes)
         
         let button = UIButton(type: .system)
         
         button.setAttributedTitle(title, for: UIControlState())
         
-        if let size = LightboxConfig.CancelButton.size {
+        if let size = MediaViewerConfig.CancelButton.size {
             button.frame.size = size
         } else {
             button.sizeToFit()
@@ -131,11 +133,11 @@ open class FooterView: UIView {
         button.addTarget(self, action: #selector(cancelButtonDidPress(_:)),
                          for: .touchUpInside)
         
-        if let image = LightboxConfig.CancelButton.image {
+        if let image = MediaViewerConfig.CancelButton.image {
             button.setBackgroundImage(image, for: UIControlState())
         }
         
-        button.isHidden = !LightboxConfig.CancelButton.enabled
+        button.isHidden = !MediaViewerConfig.CancelButton.enabled
         
         return button
         }()

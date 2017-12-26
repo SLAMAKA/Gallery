@@ -21,7 +21,7 @@ class LightboxTransition: UIPercentDrivenInteractiveTransition {
     }
   }
 
-  weak var lightboxController: LightboxController?
+  weak var lightboxController: MediaViewerController?
 
   // MARK: - Transition
 
@@ -96,7 +96,7 @@ class LightboxTransition: UIPercentDrivenInteractiveTransition {
     super.finish()
 
     guard let lightboxController = lightboxController else { return }
-    lightboxController.delegate?.lightboxControllerWillDismiss(lightboxController)
+    lightboxController.delegate?.mediaViewerControllerWillDismiss(lightboxController)
   }
 }
 

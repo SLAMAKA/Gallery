@@ -25,16 +25,15 @@ public class ImagesController: UIViewController {
         gridView.collectionView.delegate = self
         gridView.collectionView.register(ImageCell.self, forCellWithReuseIdentifier: String(describing: ImageCell.self))
         gridView.g_pinEdges()
-        gridView.doneButton.addTarget(self, action: #selector(doneButtonTouched(_:)), for: .touchUpInside)
+
         self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "", style: .plain, target: self, action: #selector(self.cancelBarButtonTapped(_:)))
     }
 
 //    MARK: - Actions
     func doneButtonTouched (_ button: UIButton) {
-//        EventHub.shared.doneWithImages?()
         let images = Cart.shared.UIImages()
-        LightboxConfig.SelectedFileCountLabel.text = "\(images.count) selected"
-        let controller = LightboxController(images: images.map({LightboxImage.init(image: $0)}))
+        MediaViewerConfig.SelectedFileCountLabel.text = "\(images.count) selected"
+        let controller = MediaViewerController(images: images.map({ ImageModel.init(image: $0)}))
         controller.dynamicBackground = true
         controller.delegate = self
         self.present(controller, animated: true, completion: nil)
@@ -161,24 +160,24 @@ extension ImagesController: UICollectionViewDataSource, UICollectionViewDelegate
     }
 }
 
-extension ImagesController: LightboxControllerDelegate {
+extension ImagesController: MediaViewerControllerDelegate {
     
-    public func lightboxControllerWillCancel(_ controller: LightboxController) {
+    public func mediaViewerControllerWillCancel(_ controller: MediaViewerController) {
         Cart.shared.images.removeAll()
         self.gridView.collectionView.reloadData()
         self.gridView.updateCount()
         self.refreshView()
     }
     
-    public func lightboxControllerWillDismiss(_ controller: LightboxController) {
+    public func mediaViewerControllerWillDismiss(_ controller: MediaViewerController) {
         
     }
     
-    public func lightboxController(_ controller: LightboxController, didMoveToPage page: Int) {
+    public func mediaViewerController(_ controller: MediaViewerController, didMoveToPage page: Int) {
         
     }
     
-    public func lightboxController(_ controller: LightboxController, didTouch image: LightboxImage, at index: Int) {
+    public func mediaViewerController(_ controller: MediaViewerController, didTouch image: ImageModel, at index: Int) {
         
     }
 }

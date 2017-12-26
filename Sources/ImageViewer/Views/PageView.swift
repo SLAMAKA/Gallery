@@ -35,7 +35,7 @@ class PageView: UIScrollView {
 
   lazy var activityIndicator: LoadingIndicator = LoadingIndicator()
 
-  var image: LightboxImage
+  var image: ImageModel
   var contentFrame = CGRect.zero
   weak var pageViewDelegate: PageViewDelegate?
 
@@ -45,7 +45,7 @@ class PageView: UIScrollView {
 
   // MARK: - Initializers
 
-  init(image: LightboxImage) {
+  init(image: ImageModel) {
     self.image = image
     super.init(frame: CGRect.zero)
 
@@ -84,8 +84,8 @@ class PageView: UIScrollView {
 
     delegate = self
     isMultipleTouchEnabled = true
-    minimumZoomScale = LightboxConfig.Zoom.minimumScale
-    maximumZoomScale = LightboxConfig.Zoom.maximumScale
+    minimumZoomScale = MediaViewerConfig.Zoom.minimumScale
+    maximumZoomScale = MediaViewerConfig.Zoom.maximumScale
     showsHorizontalScrollIndicator = false
     showsVerticalScrollIndicator = false
 
@@ -184,7 +184,7 @@ class PageView: UIScrollView {
 
   func makeActivityIndicator() -> UIActivityIndicatorView {
     let view = UIActivityIndicatorView(activityIndicatorStyle: .white)
-    LightboxConfig.LoadingIndicator.configure?(view)
+    MediaViewerConfig.LoadingIndicator.configure?(view)
     view.startAnimating()
 
     return view
