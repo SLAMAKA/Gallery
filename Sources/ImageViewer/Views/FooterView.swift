@@ -41,20 +41,11 @@ open class FooterView: UIView {
         }()
     
     open fileprivate(set) lazy var addButton: UIButton = { [unowned self] in
-        let title = NSAttributedString(
-            string: MediaViewerConfig.AddButton.text,
-            attributes: MediaViewerConfig.AddButton.textAttributes)
-        
         let button = UIButton(type: .system)
-        
-        button.setAttributedTitle(title, for: UIControlState())
-        
         if let image = MediaViewerConfig.AddButton.image {
             button.setImage(image, for: .normal)
         }
         button.sizeToFit()
-        
-        
         button.addTarget(self, action: #selector(addButtonDidPress(_:)),
                          for: .touchUpInside)
         button.isHidden = !MediaViewerConfig.AddButton.enabled
@@ -63,20 +54,8 @@ open class FooterView: UIView {
         }()
     
     open fileprivate(set) lazy var deleteButton: UIButton = { [unowned self] in
-        let title = NSAttributedString(
-            string: MediaViewerConfig.DeleteButton.text,
-            attributes: MediaViewerConfig.DeleteButton.textAttributes)
         
         let button = UIButton(type: .system)
-        
-        button.setAttributedTitle(title, for: UIControlState())
-        
-        if let size = MediaViewerConfig.DeleteButton.size {
-            button.frame.size = size
-        } else {
-            button.sizeToFit()
-        }
-        
         if let image = MediaViewerConfig.DeleteButton.image {
             button.setImage(image, for: .normal)
         }
@@ -84,11 +63,11 @@ open class FooterView: UIView {
         button.addTarget(self, action: #selector(deleteButtonDidPress(_:)),
                          for: .touchUpInside)
         
-        if let image = MediaViewerConfig.AddButton.image {
+        if let image = MediaViewerConfig.DeleteButton.image {
             button.setBackgroundImage(image, for: UIControlState())
         }
         
-        button.isHidden = !MediaViewerConfig.AddButton.enabled
+        button.isHidden = !MediaViewerConfig.DeleteButton.enabled
         
         return button
         }()

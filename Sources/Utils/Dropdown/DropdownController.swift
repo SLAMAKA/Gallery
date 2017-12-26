@@ -38,8 +38,11 @@ public class DropdownController: UIViewController {
         tableView.register(AlbumCell.self, forCellReuseIdentifier: String(describing: AlbumCell.self))
         tableView.g_pinEdges()
         
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "Cancel".g_localize(fallback: "Cancel"), style: .plain, target: self, action: #selector(cancelButtonTupped(_:)))
+        
         EventHub.shared.close = { [weak self] in
             if let strongSelf = self {
+                Cart.shared.images.removeAll()
                 strongSelf.dismiss(animated: true, completion: nil)
                 strongSelf.delegate?.dropdownControllerDidCancel(strongSelf)
                 Cart.shared.images.removeAll()
@@ -61,6 +64,10 @@ public class DropdownController: UIViewController {
                 Cart.shared.images.removeAll()
             }
         }
+    }
+    
+    func cancelButtonTupped(_ sender: Any){
+        EventHub.shared.close?()
     }
 
     func makeTableView () -> UITableView {
