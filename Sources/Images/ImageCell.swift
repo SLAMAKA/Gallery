@@ -47,6 +47,7 @@ class ImageCell: UICollectionViewCell {
 
     imageView.g_pinEdges()
     frameView.g_pinEdges()
+    frameView.label.frame.origin = CGPoint.init(x: self.bounds.width - self.frameView.label.bounds.width - 4, y: 4 )
     highlightOverlay.g_pinEdges()
   }
 

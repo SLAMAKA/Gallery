@@ -25,8 +25,7 @@ class FrameView: UIView {
     layer.borderWidth = 3
 
     addSubview(label)
-    label.g_pinCenter()
-  }
+    }
 
   // MARK: - Layout
 
@@ -40,9 +39,15 @@ class FrameView: UIView {
 
   func makeLabel() -> UILabel {
     let label = UILabel()
-    label.font = Config.Font.Main.regular.withSize(40)
+    label.font = Config.Font.Main.regular.withSize(14)
     label.textColor = UIColor.white
-
+    label.backgroundColor = UIColor.init(hex: "0084FF")
+    label.layer.cornerRadius = 11
+    label.layer.borderColor = UIColor.white.cgColor
+    label.layer.borderWidth = 1.0
+    label.textAlignment = .center
+    label.layer.masksToBounds = true
+    label.frame.size = CGSize.init(width: 22, height: 22)
     return label
   }
 
