@@ -117,7 +117,7 @@ open class LightboxConfig {
         public static var enabled = true
         public static var size: CGSize?
         public static var text = NSLocalizedString("Add", comment: "")
-        public static var image: UIImage? 
+        public static var image: UIImage? = Bundle.image("lightbox_photo_add")
         
         public static var textAttributes = [
             NSFontAttributeName: UIFont.boldSystemFont(ofSize: 16),

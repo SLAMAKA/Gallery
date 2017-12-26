@@ -58,6 +58,20 @@
 		D2E021B61DAF6E4700984B5A /* TripleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2E021B11DAF6E4700984B5A /* TripleButton.swift */; };
 		D2E021B81DAF70A800984B5A /* Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2E021B71DAF70A800984B5A /* Constraints.swift */; };
 		D5B2E8AA1C3A780C00C0327D /* Gallery.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5B2E89F1C3A780C00C0327D /* Gallery.framework */; };
+		D704F01DCF5DB0A9F9049812 /* LightboxController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D704F67C5292DFEA6E4E7C02 /* LightboxController.swift */; };
+		D704F0D311A35FA75F1F4672 /* LayoutConfigurable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D704FCBB2C6F40E34818D61C /* LayoutConfigurable.swift */; };
+		D704F1342A4CC72EADF21AD1 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D704F1E2E41E1EE9276C83A2 /* HeaderView.swift */; };
+		D704F18C64B728220FB3438F /* ExpandableTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D704F600130D32825209F06B /* ExpandableTextView.swift */; };
+		D704F1AF5913E1557104D43E /* PageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D704F3B3D76F695E7373DDFB /* PageView.swift */; };
+		D704F2BF8ADECA83FC03CF14 /* UIView+Gradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D704F9CFC6BB425C60143CEB /* UIView+Gradient.swift */; };
+		D704F3ADEEB69BA371CE6076 /* InfoLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D704F21DE2B07EFA29EE89D0 /* InfoLabel.swift */; };
+		D704F6F000CA7EE5711DB493 /* LightboxImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D704F87F59078D4131017D9E /* LightboxImage.swift */; };
+		D704F9E24F802523589A1955 /* LightboxConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = D704FC48EC0F20D7ADAB0B42 /* LightboxConfig.swift */; };
+		D704FAEDDB7336E5666C5B01 /* LightboxTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = D704FC48A8DACA7E4D4380D4 /* LightboxTransition.swift */; };
+		D704FB012F690BC37A82A5A9 /* FooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D704FB8D6245425E2EC313E1 /* FooterView.swift */; };
+		D704FBF47A7073FAE7148D56 /* LoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D704F00FE0DEF6CBC887DA94 /* LoadingIndicator.swift */; };
+		D704FC3BB24910707A0CD484 /* UIColor+Hue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D704FBC2EDDD49202308F633 /* UIColor+Hue.swift */; };
+		D704FECE2A1A770E5EA0F605 /* UIImage+Hue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D704F3017FB777756C26139C /* UIImage+Hue.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -128,6 +142,20 @@
 		D5C6298B1C3A8BBD007F7B7C /* Info-iOS.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Info-iOS.plist"; sourceTree = "<group>"; };
 		D5C6298C1C3A8BBD007F7B7C /* Info-Mac.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Info-Mac.plist"; sourceTree = "<group>"; };
 		D5C629901C3A8BDA007F7B7C /* Info-iOS.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Info-iOS.plist"; sourceTree = "<group>"; };
+		D704F00FE0DEF6CBC887DA94 /* LoadingIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingIndicator.swift; sourceTree = "<group>"; };
+		D704F1E2E41E1EE9276C83A2 /* HeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
+		D704F21DE2B07EFA29EE89D0 /* InfoLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoLabel.swift; sourceTree = "<group>"; };
+		D704F3017FB777756C26139C /* UIImage+Hue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Hue.swift"; sourceTree = "<group>"; };
+		D704F3B3D76F695E7373DDFB /* PageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageView.swift; sourceTree = "<group>"; };
+		D704F600130D32825209F06B /* ExpandableTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpandableTextView.swift; sourceTree = "<group>"; };
+		D704F67C5292DFEA6E4E7C02 /* LightboxController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LightboxController.swift; sourceTree = "<group>"; };
+		D704F87F59078D4131017D9E /* LightboxImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LightboxImage.swift; sourceTree = "<group>"; };
+		D704F9CFC6BB425C60143CEB /* UIView+Gradient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Gradient.swift"; sourceTree = "<group>"; };
+		D704FB8D6245425E2EC313E1 /* FooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FooterView.swift; sourceTree = "<group>"; };
+		D704FBC2EDDD49202308F633 /* UIColor+Hue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Hue.swift"; sourceTree = "<group>"; };
+		D704FC48A8DACA7E4D4380D4 /* LightboxTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LightboxTransition.swift; sourceTree = "<group>"; };
+		D704FC48EC0F20D7ADAB0B42 /* LightboxConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LightboxConfig.swift; sourceTree = "<group>"; };
+		D704FCBB2C6F40E34818D61C /* LayoutConfigurable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayoutConfigurable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -192,6 +220,8 @@
 				D2E0217A1DAF6E3B00984B5A /* VideoEditor */,
 				D2E0217F1DAF6E3B00984B5A /* View */,
 				D2E021B71DAF70A800984B5A /* Constraints.swift */,
+				D704F3017FB777756C26139C /* UIImage+Hue.swift */,
+				D704FBC2EDDD49202308F633 /* UIColor+Hue.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -327,6 +357,7 @@
 				D27B72F01D6EEED10093318F /* Images */,
 				D27B72F61D6EEED10093318F /* Utils */,
 				D27B72FB1D6EEED10093318F /* Video */,
+				D704FD351971DE3D8A1ADD1C /* ImageViewer */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -338,6 +369,41 @@
 				D5C629901C3A8BDA007F7B7C /* Info-iOS.plist */,
 			);
 			path = GalleryTests;
+			sourceTree = "<group>";
+		};
+		D704F664A1E054A9128B565D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D704F3B3D76F695E7373DDFB /* PageView.swift */,
+				D704F21DE2B07EFA29EE89D0 /* InfoLabel.swift */,
+				D704FB8D6245425E2EC313E1 /* FooterView.swift */,
+				D704F1E2E41E1EE9276C83A2 /* HeaderView.swift */,
+				D704F00FE0DEF6CBC887DA94 /* LoadingIndicator.swift */,
+				D704F600130D32825209F06B /* ExpandableTextView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		D704F8ACDA16D3C8CEA0E228 /* Library */ = {
+			isa = PBXGroup;
+			children = (
+				D704F9CFC6BB425C60143CEB /* UIView+Gradient.swift */,
+				D704FCBB2C6F40E34818D61C /* LayoutConfigurable.swift */,
+				D704FC48A8DACA7E4D4380D4 /* LightboxTransition.swift */,
+			);
+			path = Library;
+			sourceTree = "<group>";
+		};
+		D704FD351971DE3D8A1ADD1C /* ImageViewer */ = {
+			isa = PBXGroup;
+			children = (
+				D704F664A1E054A9128B565D /* Views */,
+				D704F8ACDA16D3C8CEA0E228 /* Library */,
+				D704F87F59078D4131017D9E /* LightboxImage.swift */,
+				D704FC48EC0F20D7ADAB0B42 /* LightboxConfig.swift */,
+				D704F67C5292DFEA6E4E7C02 /* LightboxController.swift */,
+			);
+			path = ImageViewer;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -498,6 +564,20 @@
 				D2E0215C1DAF6E2C00984B5A /* Video.swift in Sources */,
 				D2E0215F1DAF6E2C00984B5A /* VideosController.swift in Sources */,
 				D2E021951DAF6E3B00984B5A /* PagesController.swift in Sources */,
+				D704FECE2A1A770E5EA0F605 /* UIImage+Hue.swift in Sources */,
+				D704FC3BB24910707A0CD484 /* UIColor+Hue.swift in Sources */,
+				D704F1AF5913E1557104D43E /* PageView.swift in Sources */,
+				D704F3ADEEB69BA371CE6076 /* InfoLabel.swift in Sources */,
+				D704FB012F690BC37A82A5A9 /* FooterView.swift in Sources */,
+				D704F1342A4CC72EADF21AD1 /* HeaderView.swift in Sources */,
+				D704FBF47A7073FAE7148D56 /* LoadingIndicator.swift in Sources */,
+				D704F18C64B728220FB3438F /* ExpandableTextView.swift in Sources */,
+				D704F2BF8ADECA83FC03CF14 /* UIView+Gradient.swift in Sources */,
+				D704F0D311A35FA75F1F4672 /* LayoutConfigurable.swift in Sources */,
+				D704FAEDDB7336E5666C5B01 /* LightboxTransition.swift in Sources */,
+				D704F6F000CA7EE5711DB493 /* LightboxImage.swift in Sources */,
+				D704F9E24F802523589A1955 /* LightboxConfig.swift in Sources */,
+				D704F01DCF5DB0A9F9049812 /* LightboxController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

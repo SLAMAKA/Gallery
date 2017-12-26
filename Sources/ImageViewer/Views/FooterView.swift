@@ -1,9 +1,6 @@
 import UIKit
 
 public protocol FooterViewDelegate: class {
-
-    func footerView(_ footerView: FooterView, didExpand expanded: Bool)
-    
     func footerView(_ footerView: FooterView, didPressDeleteButton deleteButton: UIButton)
     func footerView(_ footerView: FooterView, didPressCancelButton closeButton: UIButton)
     func footerView(_ footerView: FooterView, didPressAddButton closeButton: UIButton)
@@ -52,11 +49,11 @@ open class FooterView: UIView {
         
         button.setAttributedTitle(title, for: UIControlState())
         
-        if let size = LightboxConfig.AddButton.size {
-            button.frame.size = size
-        } else {
-            button.sizeToFit()
+        if let image = LightboxConfig.AddButton.image {
+            button.setImage(image, for: .normal)
         }
+        button.sizeToFit()
+        
         
         button.addTarget(self, action: #selector(addButtonDidPress(_:)),
                          for: .touchUpInside)
@@ -64,7 +61,6 @@ open class FooterView: UIView {
         
         return button
         }()
-    
     
     open fileprivate(set) lazy var deleteButton: UIButton = { [unowned self] in
         let title = NSAttributedString(
@@ -79,6 +75,10 @@ open class FooterView: UIView {
             button.frame.size = size
         } else {
             button.sizeToFit()
+        }
+        
+        if let image = LightboxConfig.DeleteButton.image {
+            button.setImage(image, for: .normal)
         }
         
         button.addTarget(self, action: #selector(deleteButtonDidPress(_:)),
@@ -100,6 +100,7 @@ open class FooterView: UIView {
         textView.setTextPlaceholder(LightboxConfig.MessageTextView.placeholderText)
         textView.setTextPlaceholderFont(UIFont.systemFont(ofSize: 15))
         textView.setTextPlaceholderColor(UIColor.white)
+        textView.textColor = .white
 
         textView.layer.cornerRadius = 4
         textView.spellCheckingType = .yes
@@ -164,22 +165,18 @@ open class FooterView: UIView {
     
 //    MARK: - Actions
     func sendButtonDidPress(_ button: UIButton) {
-        print("SendButtonDidPress(_ button: UIButton)")
         self.delegate?.footerView(self, didPressSendButton: button)
     }
     
     func deleteButtonDidPress(_ button: UIButton) {
-        print("DeleteButtonDidPress(_ button: UIButton)")
         self.delegate?.footerView(self, didPressDeleteButton: button)
     }
     
     func cancelButtonDidPress(_ button: UIButton) {
-        print("CancelButtonDidPress(_ button: UIButton)")
         self.delegate?.footerView(self, didPressCancelButton: button)
     }
     
     func addButtonDidPress(_ button: UIButton){
-        print("AddButtonDidPress(_ button: UIButton)")
         self.delegate?.footerView(self, didPressAddButton: button)
     }
     
@@ -202,13 +199,4 @@ extension FooterView: LayoutConfigurable {
         
         self.resizeGradientLayer()
     }
-}
-
-extension FooterView: InfoLabelDelegate {
-
-  public func infoLabel(_ infoLabel: InfoLabel, didExpand expanded: Bool) {
-    resetFrames()
-    _ = expanded ? removeGradientLayer() : addGradientLayer(gradientColors)
-    delegate?.footerView(self, didExpand: expanded)
-  }
 }

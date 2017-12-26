@@ -1,18 +1,10 @@
 import UIKit
 
-public protocol LightboxControllerPageDelegate: class {
-
-  func lightboxController(_ controller: LightboxController, didMoveToPage page: Int)
-}
-
-public protocol LightboxControllerDismissalDelegate: class {
-
-  func lightboxControllerWillDismiss(_ controller: LightboxController)
-}
-
-public protocol LightboxControllerTouchDelegate: class {
-    
-  func lightboxController(_ controller: LightboxController, didTouch image: LightboxImage, at index: Int)
+public protocol LightboxControllerDelegate: class {
+    func lightboxControllerWillCancel(_ controller: LightboxController)
+    func lightboxControllerWillDismiss(_ controller: LightboxController)
+    func lightboxController(_ controller: LightboxController, didMoveToPage page: Int)
+    func lightboxController(_ controller: LightboxController, didTouch image: LightboxImage, at index: Int)
 }
 
 open class LightboxController: UIViewController {
@@ -89,14 +81,11 @@ open class LightboxController: UIViewController {
   open fileprivate(set) var currentPage = 0 {
     didSet {
       currentPage = min(numberOfPages - 1, max(0, currentPage))
-//      footerView.updatePage(currentPage + 1, numberOfPages)
-//      footerView.updateText(pageViews[currentPage].image.text)
-
       if currentPage == numberOfPages - 1 {
         seen = true
       }
 
-      pageDelegate?.lightboxController(self, didMoveToPage: currentPage)
+      delegate?.lightboxController(self, didMoveToPage: currentPage)
 
       if let image = pageViews[currentPage].imageView.image, dynamicBackground {
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.125) {
@@ -139,15 +128,14 @@ open class LightboxController: UIViewController {
     }
   }
 
-  open weak var pageDelegate: LightboxControllerPageDelegate?
-  open weak var dismissalDelegate: LightboxControllerDismissalDelegate?
-  open weak var imageTouchDelegate: LightboxControllerTouchDelegate?
+  open weak var delegate: LightboxControllerDelegate?
+    
   open internal(set) var presented = false
   open fileprivate(set) var seen = false
 
   lazy var transitionManager: LightboxTransition = LightboxTransition()
   var pageViews = [PageView]()
-  var statusBarHidden = false
+  var statusBarHidden = true
 
   fileprivate let initialImages: [LightboxImage]
   fileprivate let initialPage: Int
@@ -312,6 +300,10 @@ open class LightboxController: UIViewController {
       pageView?.playButton.alpha = alpha
     }, completion: nil)
   }
+    
+    deinit {
+        print("Deinit \(String.init(describing: self))")
+    }
 }
 
 // MARK: - UIScrollViewDelegate
@@ -338,6 +330,7 @@ extension LightboxController: UIScrollViewDelegate {
 
     targetContentOffset.pointee.x = x
     currentPage = Int(x / screenBounds.width)
+    self.headerView.setFocusOn(self.currentPage)
   }
 }
 
@@ -370,7 +363,7 @@ extension LightboxController: PageViewDelegate {
   func pageViewDidTouch(_ pageView: PageView) {
     guard !pageView.hasZoomed else { return }
 
-    imageTouchDelegate?.lightboxController(self, didTouch: images[currentPage], at: currentPage)
+    delegate?.lightboxController(self, didTouch: images[currentPage], at: currentPage)
     
     let visible = (headerView.alpha == 1.0)
     toggleControls(pageView: pageView, visible: !visible)
@@ -386,27 +379,20 @@ extension LightboxController: HeaderViewDelegate {
 // MARK: - FooterViewDelegate
 
 extension LightboxController: FooterViewDelegate {
-
-  public func footerView(_ footerView: FooterView, didExpand expanded: Bool) {
-    footerView.frame.origin.y = screenBounds.height - footerView.frame.height
-
-    UIView.animate(withDuration: 0.25, animations: {
-      self.overlayView.alpha = expanded ? 1.0 : 0.0
-//      self.headerView.deleteButton.alpha = expanded ? 0.0 : 1.0
-    })
-  }
     
     public func footerView(_ footerView: FooterView, didPressDeleteButton deleteButton: UIButton) {
         deleteButton.isEnabled = false
+//        MARK: - Update Store and Count Label
+        Cart.shared.remove(self.currentPage)
+        self.headerView.updateSelectedCountLabel()
+        self.headerView.deleteRowInCollectionView(self.currentPage)
         
         guard numberOfPages != 1 else {
             pageViews.removeAll()
             self.footerView(footerView, didPressCancelButton: deleteButton)
             return
         }
-        
         let prevIndex = currentPage
-        
         if currentPage == numberOfPages - 1 {
             previous()
         } else {
@@ -425,17 +411,14 @@ extension LightboxController: FooterViewDelegate {
     public func footerView(_ footerView: FooterView, didPressCancelButton closeButton: UIButton) {
         closeButton.isEnabled = false
         presented = false
-        dismissalDelegate?.lightboxControllerWillDismiss(self)
+        delegate?.lightboxControllerWillCancel(self)
         dismiss(animated: true, completion: nil)
     }
     
     public func footerView(_ footerView: FooterView, didPressAddButton closeButton: UIButton) {
-        
+        dismiss(animated: true, completion: nil)
     }
-    
     
     public func footerView(_ footerView: FooterView, didPressSendButton closeButton: UIButton){
-        
     }
-
 }
