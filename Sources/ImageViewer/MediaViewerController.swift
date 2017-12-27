@@ -285,7 +285,7 @@ open class MediaViewerController: UIViewController {
 
         let bounds = scrollView.bounds
 
-        headerView.frame = CGRect(x: 0, y: 0, width: bounds.width, height: 98)
+        headerView.frame = CGRect(x: 0, y: 0, width: bounds.width, height: Cart.shared.images.count <= 1 ? 38 : 98)
         footerView.frame = CGRect(x: 0, y: 0, width: bounds.width, height: 88)
 
         [headerView, footerView].forEach {
@@ -432,7 +432,7 @@ extension MediaViewerController: FooterViewDelegate {
     }
 
     public func footerView(_ footerView: FooterView, didPressAddButton closeButton: UIButton) {
-        
+        self.delegate?.mediaViewerControllerDidAdd(self)
     }
 
     public func footerView(_ footerView: FooterView, didPressSendButton closeButton: UIButton) {

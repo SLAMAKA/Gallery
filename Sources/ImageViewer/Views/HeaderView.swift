@@ -94,12 +94,16 @@ extension HeaderView: LayoutConfigurable {
 
   public func configureLayout() {
     self.conversationLabel.frame.origin = CGPoint.init(x: 16, y: 16)
-    self.fileCountLabel.frame.origin = CGPoint.init(x: self.bounds.width - self.fileCountLabel.bounds.width - 16, y: 16)
     
-    self.collectionView.frame = CGRect.init(origin: CGPoint.init(x: 2, y: 38), size: CGSize.init(width: self.bounds.width - 4, height: 56))
-    
+    if Cart.shared.images.count <= 1 {
+        self.collectionView.isHidden = true
+        self.fileCountLabel.isHidden = true
+    } else {
+        self.fileCountLabel.frame.origin = CGPoint.init(x: self.bounds.width - self.fileCountLabel.bounds.width - 16, y: 16)
+        self.collectionView.frame = CGRect.init(origin: CGPoint.init(x: 2, y: 38), size: CGSize.init(width: self.bounds.width - 4, height: 56))
+        self.collectionView.reloadData()
+    }
     self.resizeGradientLayer()
-    self.collectionView.reloadData()
   }
 }
 

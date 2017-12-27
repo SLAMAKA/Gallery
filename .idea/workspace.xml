@@ -2,32 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4d7edd6c-7f1d-4404-8fd5-abd726450da5" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Resources/Gallery.bundle/gallery_camera_flash_auto.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Resources/Gallery.bundle/gallery_camera_flash_auto@2x.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Resources/Gallery.bundle/gallery_camera_flash_off.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Resources/Gallery.bundle/gallery_camera_flash_off@2x.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Resources/Gallery.bundle/gallery_camera_flash_on.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Resources/Gallery.bundle/gallery_camera_flash_on@2x.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Resources/Gallery.bundle/gallery_camera_rotate.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Resources/Gallery.bundle/gallery_camera_rotate@2x.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Resources/Gallery.bundle/gallery_close.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Resources/Gallery.bundle/gallery_camera_flash_auto@3x.png" afterPath="$PROJECT_DIR$/Resources/Gallery.bundle/gallery_camera_flash_auto@3x.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Resources/Gallery.bundle/gallery_camera_flash_off@3x.png" afterPath="$PROJECT_DIR$/Resources/Gallery.bundle/gallery_camera_flash_off@3x.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Resources/Gallery.bundle/gallery_camera_flash_on@3x.png" afterPath="$PROJECT_DIR$/Resources/Gallery.bundle/gallery_camera_flash_on@3x.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Resources/Gallery.bundle/gallery_camera_rotate@3x.png" afterPath="$PROJECT_DIR$/Resources/Gallery.bundle/gallery_camera_rotate@3x.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Resources/Gallery.bundle/gallery_close@2x.png" afterPath="$PROJECT_DIR$/Resources/Gallery.bundle/gallery_close@2x.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Resources/Gallery.bundle/gallery_close@3x.png" afterPath="$PROJECT_DIR$/Resources/Gallery.bundle/gallery_close@3x.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Resources/Gallery.bundle/add_photo.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Resources/Gallery.bundle/add_photo@2x.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Resources/Gallery.bundle/add_photo@3x.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Example/GalleryDemo/GalleryDemo/Sources/ViewController.swift" afterPath="$PROJECT_DIR$/Example/GalleryDemo/GalleryDemo/Sources/ViewController.swift" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Sources/Camera/CameraController.swift" afterPath="$PROJECT_DIR$/Sources/Camera/CameraController.swift" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Sources/Camera/CameraView.swift" afterPath="$PROJECT_DIR$/Sources/Camera/CameraView.swift" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Sources/Camera/ShutterButton.swift" afterPath="$PROJECT_DIR$/Sources/Camera/ShutterButton.swift" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Sources/Camera/TripleButton.swift" afterPath="$PROJECT_DIR$/Sources/Camera/TripleButton.swift" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Sources/ImageViewer/MediaViewerConfig.swift" afterPath="$PROJECT_DIR$/Sources/ImageViewer/MediaViewerConfig.swift" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Sources/ImageViewer/MediaViewerController.swift" afterPath="$PROJECT_DIR$/Sources/ImageViewer/MediaViewerController.swift" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Sources/ImageViewer/Views/FooterView.swift" afterPath="$PROJECT_DIR$/Sources/ImageViewer/Views/FooterView.swift" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Sources/Images/Cart.swift" afterPath="$PROJECT_DIR$/Sources/Images/Cart.swift" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Sources/Images/ImagesController.swift" afterPath="$PROJECT_DIR$/Sources/Images/ImagesController.swift" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Sources/Utils/Fetcher.swift" afterPath="$PROJECT_DIR$/Sources/Utils/Fetcher.swift" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Sources/ImageViewer/Views/HeaderView.swift" afterPath="$PROJECT_DIR$/Sources/ImageViewer/Views/HeaderView.swift" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -46,8 +30,16 @@
         <entry file="file://$PROJECT_DIR$/Sources/Camera/CameraController.swift">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="559">
-              <caret line="196" column="32" lean-forward="false" selection-start-line="196" selection-start-column="32" selection-end-line="196" selection-end-column="32" />
-              <folding />
+              <caret line="193" column="32" lean-forward="false" selection-start-line="193" selection-start-column="32" selection-end-line="193" selection-end-column="32" />
+              <folding>
+                <marker date="1514367559000" expanded="true" signature="82:160" ph="{...}" />
+                <marker date="1514367559000" expanded="true" signature="7175:7181" ph="{...}" />
+                <marker date="1514367559000" expanded="true" signature="7175:7750" ph="{...}" />
+                <marker date="1514367559000" expanded="true" signature="7272:7378" ph="{...}" />
+                <marker date="1514367559000" expanded="true" signature="7470:7486" ph="{...}" />
+                <marker date="1514367559000" expanded="true" signature="7592:7608" ph="{...}" />
+                <marker date="1514367559000" expanded="true" signature="7732:7748" ph="{...}" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -235,7 +227,7 @@
       <workItem from="1514023785792" duration="6828000" />
       <workItem from="1514274443751" duration="1820000" />
       <workItem from="1514277171762" duration="4242000" />
-      <workItem from="1514347195130" duration="2968000" />
+      <workItem from="1514347195130" duration="4749000" />
     </task>
     <task id="LOCAL-00001" summary="changed selected cell view">
       <created>1514277020830</created>
@@ -258,11 +250,25 @@
       <option name="project" value="LOCAL" />
       <updated>1514285202813</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Added Camera Controller">
+      <created>1514360678197</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1514360678198</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Camera Controller -&gt; Space for close button">
+      <created>1514361229980</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1514361229980</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="15858000" />
+    <option name="totallyTimeSpent" value="17639000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -300,7 +306,9 @@
     <MESSAGE value="changed selected cell view" />
     <MESSAGE value="re add lightboxcontroller files" />
     <MESSAGE value="fixed some bug" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed some bug" />
+    <MESSAGE value="Added Camera Controller" />
+    <MESSAGE value="Camera Controller -&gt; Space for close button" />
+    <option name="LAST_COMMIT_MESSAGE" value="Camera Controller -&gt; Space for close button" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -439,8 +447,16 @@
     <entry file="file://$PROJECT_DIR$/Sources/Camera/CameraController.swift">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="559">
-          <caret line="196" column="32" lean-forward="false" selection-start-line="196" selection-start-column="32" selection-end-line="196" selection-end-column="32" />
-          <folding />
+          <caret line="193" column="32" lean-forward="false" selection-start-line="193" selection-start-column="32" selection-end-line="193" selection-end-column="32" />
+          <folding>
+            <marker date="1514367559000" expanded="true" signature="82:160" ph="{...}" />
+            <marker date="1514367559000" expanded="true" signature="7175:7181" ph="{...}" />
+            <marker date="1514367559000" expanded="true" signature="7175:7750" ph="{...}" />
+            <marker date="1514367559000" expanded="true" signature="7272:7378" ph="{...}" />
+            <marker date="1514367559000" expanded="true" signature="7470:7486" ph="{...}" />
+            <marker date="1514367559000" expanded="true" signature="7592:7608" ph="{...}" />
+            <marker date="1514367559000" expanded="true" signature="7732:7748" ph="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>

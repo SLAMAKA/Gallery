@@ -65,14 +65,8 @@ open class FooterView: UIView {
         if let image = MediaViewerConfig.DeleteButton.image {
             button.setImage(image, for: .normal)
         }
-        
         button.addTarget(self, action: #selector(deleteButtonDidPress(_:)),
                          for: .touchUpInside)
-        
-        if let image = MediaViewerConfig.DeleteButton.image {
-            button.setBackgroundImage(image, for: UIControlState())
-        }
-        
         button.isHidden = !MediaViewerConfig.DeleteButton.enabled
         
         return button

@@ -56,7 +56,7 @@ open class MediaViewerConfig {
     public static var image: UIImage?
 
     public static var textAttributes = [
-      NSFontAttributeName: UIFont.boldSystemFont(ofSize: 16),
+      NSFontAttributeName: UIFont.systemFont(ofSize: 16),
       NSForegroundColorAttributeName: UIColor.white,
       NSParagraphStyleAttributeName: {
         var style = NSMutableParagraphStyle()
@@ -117,10 +117,10 @@ open class MediaViewerConfig {
         public static var enabled = true
         public static var size: CGSize?
         public static var text = NSLocalizedString("Add", comment: "")
-        public static var image: UIImage? = Bundle.image("lightbox_photo_add")
+        public static var image: UIImage? = Bundle.image("add_photo")!
         
         public static var textAttributes = [
-            NSFontAttributeName: UIFont.boldSystemFont(ofSize: 16),
+            NSFontAttributeName: UIFont.systemFont(ofSize: 16),
             NSForegroundColorAttributeName: UIColor.white,
             NSParagraphStyleAttributeName: {
                 var style = NSMutableParagraphStyle()
@@ -155,7 +155,7 @@ open class MediaViewerConfig {
         public static var image: UIImage?
         
         public static var textAttributes = [
-            NSFontAttributeName: UIFont.boldSystemFont(ofSize: 15),
+            NSFontAttributeName: UIFont.systemFont(ofSize: 15),
             NSForegroundColorAttributeName: UIColor.white,
             NSParagraphStyleAttributeName: {
                 var style = NSMutableParagraphStyle()
@@ -167,12 +167,12 @@ open class MediaViewerConfig {
 
   public struct DeleteButton {
     public static var enabled = true
-    public static var size: CGSize?
+    public static var size: CGSize? = CGSize.init(width: 22, height: 22)
     public static var text = NSLocalizedString("Delete", comment: "")
-    public static var image: UIImage? = UIImage.init(named: "photo_delete")
+    public static var image: UIImage? = Bundle.image("gallery_close")!
 
     public static var textAttributes = [
-      NSFontAttributeName: UIFont.boldSystemFont(ofSize: 16),
+      NSFontAttributeName: UIFont.systemFont(ofSize: 16),
       NSForegroundColorAttributeName: UIColor.white,
       NSParagraphStyleAttributeName: {
         var style = NSMutableParagraphStyle()

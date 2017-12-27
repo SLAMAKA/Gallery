@@ -3,7 +3,7 @@ import AVFoundation
 
 public protocol CameraControllerDelegate: class {
     func didCancelCameraController(_ controller: CameraController)
-    func dropdownController(_ controller: CameraController, didSelectImage image: UIImage)
+    func cameraController(_ controller: CameraController, didSelectImages images: [UIImage])
 }
 
 public class CameraController: UIViewController {
@@ -127,10 +127,7 @@ public class CameraController: UIViewController {
             
             if let asset = asset {
                 Cart.shared.add(Image.init(asset: asset))
-                
-                MediaViewerConfig.AddButton.size = CGSize.zero
-                MediaViewerConfig.SelectedFileCountLabel.text = ""
-                let controller = MediaViewerController(images: [ImageModel.init(image: Cart.shared.UIImages().last!)])
+                let controller = MediaViewerController(images: Cart.shared.UIImages().map({ImageModel.init(image: $0)}), startIndex: Cart.shared.UIImages().count-1)
                 controller.dynamicBackground = true
                 controller.delegate = self
                 self.present(controller, animated: true, completion: nil)
@@ -219,11 +216,11 @@ extension CameraController: MediaViewerControllerDelegate {
     }
     
     public func mediaViewerControllerDidSend(_ controller: MediaViewerController) {
-        if let image = Cart.shared.UIImages().last {
+        
             controller.dismiss(animated: true, completion: nil)
-            self.delegate?.dropdownController(self, didSelectImage: image)
+            self.delegate?.cameraController(self, didSelectImages: Cart.shared.UIImages())
             Cart.shared.images.removeAll()
-        }
+        
     }
     
     public func mediaViewerControllerWillCancel(_ controller: MediaViewerController) {

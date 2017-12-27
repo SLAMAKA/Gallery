@@ -106,13 +106,15 @@ extension ViewController: DropdownControllerDelegate{
 }
 
 extension ViewController: CameraControllerDelegate {
+  func cameraController(_ controller: CameraController, didSelectImages images: [UIImage]) {
+    print("dropdownController(_ controller: CameraController, didSelectImage image: UIImage)")
+    controller.dismiss(animated: true, completion: nil)
+  }
+  
   func didCancelCameraController(_ controller: CameraController){
     print("didCancelCameraController(_ controller: CameraController)")
     controller.dismiss(animated: true, completion: nil)
   }
-  func dropdownController(_ controller: CameraController, didSelectImage image: UIImage){
-    print("dropdownController(_ controller: CameraController, didSelectImage image: UIImage)")
-    controller.dismiss(animated: true, completion: nil)
-  }
+  
 
 }
