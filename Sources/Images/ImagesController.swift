@@ -33,7 +33,7 @@ public class ImagesController: UIViewController {
     func doneButtonTouched (_ button: UIButton) {
         let images = Cart.shared.UIImages()
         MediaViewerConfig.SelectedFileCountLabel.text = "\(images.count) selected"
-        let controller = MediaViewerController(images: images.map({ ImageModel.init(image: $0)}))
+        let controller = MediaViewerController(images: images.map({ ImageModel.init(image: $0)}), startIndex: images.count)
         controller.dynamicBackground = true
         controller.delegate = self
         self.present(controller, animated: true, completion: nil)
