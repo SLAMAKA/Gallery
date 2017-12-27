@@ -45,7 +45,13 @@ open class FooterView: UIView {
         if let image = MediaViewerConfig.AddButton.image {
             button.setImage(image, for: .normal)
         }
-        button.sizeToFit()
+        
+        if let size = MediaViewerConfig.AddButton.size {
+            button.bounds.size = size
+        } else {
+            button.sizeToFit()
+        }
+        
         button.addTarget(self, action: #selector(addButtonDidPress(_:)),
                          for: .touchUpInside)
         button.isHidden = !MediaViewerConfig.AddButton.enabled

@@ -22,7 +22,7 @@ class ShutterButton: UIButton {
   override func layoutSubviews() {
     super.layoutSubviews()
 
-    overlayView.frame = bounds.insetBy(dx: 3, dy: 3)
+    overlayView.frame = bounds.insetBy(dx: 8, dy: 8)
     overlayView.layer.cornerRadius = overlayView.frame.size.width/2
 
     roundLayer.path = UIBezierPath(ovalIn: bounds.insetBy(dx: 3, dy: 3)).cgPath
@@ -32,7 +32,7 @@ class ShutterButton: UIButton {
   // MARK: - Setup
 
   func setup() {
-    backgroundColor = UIColor.white
+    backgroundColor = UIColor.clear
 
     addSubview(overlayView)
     layer.addSublayer(roundLayer)
@@ -42,6 +42,7 @@ class ShutterButton: UIButton {
 
   func makeOverlayView() -> UIView {
     let view = UIView()
+    view.frame.size = CGSize.init(width: 54, height: 54)
     view.backgroundColor = UIColor.white
     view.isUserInteractionEnabled = false
 
@@ -50,8 +51,8 @@ class ShutterButton: UIButton {
 
   func makeRoundLayer() -> CAShapeLayer {
     let layer = CAShapeLayer()
-    layer.strokeColor = Config.Camera.ShutterButton.numberColor.cgColor
-    layer.lineWidth = 2
+    layer.strokeColor = UIColor.white.cgColor
+    layer.lineWidth = 3
     layer.fillColor = nil
 
     return layer

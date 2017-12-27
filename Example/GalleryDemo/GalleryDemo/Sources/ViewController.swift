@@ -30,10 +30,13 @@ class ViewController: UIViewController {
   }
   
   func buttonTouched(_ button: UIButton) {
-    let controller = DropdownController()
-    controller.delegate = self
-    let navigationController = UINavigationController.init(rootViewController: controller)
-    self.present(navigationController, animated: true, completion: nil)
+//    let controller = DropdownController()
+//    controller.delegate = self
+//    let navigationController = UINavigationController.init(rootViewController: controller)
+    
+    let camera = CameraController()
+    camera.delegate = self
+    self.present(camera, animated: true, completion: nil)
   }
   
   
@@ -98,7 +101,18 @@ extension ViewController: DropdownControllerDelegate{
   func dropdownControllerDidCancel(_ controller: DropdownController){
     controller.dismiss(animated: true, completion: nil)
     print("func dropdownControllerDidCancel(_ controller: DropdownController)")
-    
   }
   
+}
+
+extension ViewController: CameraControllerDelegate {
+  func didCancelCameraController(_ controller: CameraController){
+    print("didCancelCameraController(_ controller: CameraController)")
+    controller.dismiss(animated: true, completion: nil)
+  }
+  func dropdownController(_ controller: CameraController, didSelectImage image: UIImage){
+    print("dropdownController(_ controller: CameraController, didSelectImage image: UIImage)")
+    controller.dismiss(animated: true, completion: nil)
+  }
+
 }

@@ -3,7 +3,7 @@ import UIKit
 class TripleButton: UIButton {
 
   struct State {
-    let title: String
+    //let title: String
     let image: UIImage
   }
 
@@ -46,7 +46,7 @@ class TripleButton: UIButton {
 
     let state = states[index]
 
-    setTitle(state.title, for: UIControlState())
+//    setTitle(state.title, for: UIControlState())
     setImage(state.image, for: UIControlState())
   }
 }

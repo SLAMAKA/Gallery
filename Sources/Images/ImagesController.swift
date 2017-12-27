@@ -161,8 +161,17 @@ extension ImagesController: UICollectionViewDataSource, UICollectionViewDelegate
 }
 
 extension ImagesController: MediaViewerControllerDelegate {
+    public func mediaViewerControllerDidAdd(_ controller: MediaViewerController) {
+        controller.dismiss(animated: true, completion: nil)
+    }
+    
+    public func mediaViewerControllerDidSend(_ controller: MediaViewerController) {
+        EventHub.shared.doneWithImages?()
+    }
+    
     
     public func mediaViewerControllerWillCancel(_ controller: MediaViewerController) {
+        controller.dismiss(animated: true, completion: nil)
         Cart.shared.images.removeAll()
         self.gridView.collectionView.reloadData()
         self.gridView.updateCount()

@@ -1,6 +1,8 @@
 import UIKit
 
 public protocol MediaViewerControllerDelegate: class {
+    func mediaViewerControllerDidAdd(_ controller: MediaViewerController)
+    func mediaViewerControllerDidSend(_ controller: MediaViewerController)
     func mediaViewerControllerWillCancel(_ controller: MediaViewerController)
     func mediaViewerControllerWillDismiss(_ controller: MediaViewerController)
     func mediaViewerController(_ controller: MediaViewerController, didMoveToPage page: Int)
@@ -10,6 +12,10 @@ public protocol MediaViewerControllerDelegate: class {
 open class MediaViewerController: UIViewController {
 
     // MARK: - Internal views
+    
+    open override var prefersStatusBarHidden: Bool{ return MediaViewerConfig.hideStatusBar }
+    open override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation { return .slide }
+
 
     lazy var scrollView: UIScrollView = { [unowned self] in
         let scrollView = UIScrollView()
@@ -423,14 +429,14 @@ extension MediaViewerController: FooterViewDelegate {
         closeButton.isEnabled = false
         presented = false
         delegate?.mediaViewerControllerWillCancel(self)
-        dismiss(animated: true, completion: nil)
     }
 
     public func footerView(_ footerView: FooterView, didPressAddButton closeButton: UIButton) {
-        dismiss(animated: true, completion: nil)
+        
     }
 
     public func footerView(_ footerView: FooterView, didPressSendButton closeButton: UIButton) {
         EventHub.shared.doneWithImages?()
+        self.delegate?.mediaViewerControllerDidSend(self)
     }
 }

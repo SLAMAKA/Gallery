@@ -43,11 +43,11 @@ class CameraView: UIView, UIGestureRecognizerDelegate {
   func setup() {
     addGestureRecognizer(tapGR)
 
-    [closeButton, flashButton, rotateButton, bottomContainer].forEach {
+    [closeButton, bottomContainer].forEach {
       addSubview($0)
     }
 
-    [bottomView, shutterButton].forEach {
+    [bottomView, shutterButton, flashButton, rotateButton].forEach {
       bottomContainer.addSubview($0)
     }
 
@@ -64,20 +64,20 @@ class CameraView: UIView, UIGestureRecognizerDelegate {
     insertSubview(focusImageView, belowSubview: bottomContainer)
     insertSubview(shutterOverlayView, belowSubview: bottomContainer)
 
-    closeButton.g_pin(on: .top)
-    closeButton.g_pin(on: .left)
+    closeButton.g_pin(on: .top, constant: 16)
+    closeButton.g_pin(on: .left, constant: 16)
     closeButton.g_pin(size: CGSize(width: 44, height: 44))
 
-    flashButton.g_pin(on: .centerY, view: closeButton)
-    flashButton.g_pin(on: .centerX)
+    flashButton.g_pin(on: .centerY, view: shutterButton)
+    flashButton.g_pin(on: .left, constant: 24)
     flashButton.g_pin(size: CGSize(width: 60, height: 44))
 
-    rotateButton.g_pin(on: .top)
-    rotateButton.g_pin(on: .right)
+    rotateButton.g_pin(on: .centerY, view: shutterButton)
+    rotateButton.g_pin(on: .right, constant: -24)
     rotateButton.g_pin(size: CGSize(width: 44, height: 44))
 
     bottomContainer.g_pinDownward()
-    bottomContainer.g_pin(height: 80)
+    bottomContainer.g_pin(height: 128)
     bottomView.g_pinEdges()
 
     stackView.g_pin(on: .centerY, constant: -4)
@@ -85,7 +85,7 @@ class CameraView: UIView, UIGestureRecognizerDelegate {
     stackView.g_pin(size: CGSize(width: 56, height: 56))
 
     shutterButton.g_pinCenter()
-    shutterButton.g_pin(size: CGSize(width: 60, height: 60))
+    shutterButton.g_pin(size: CGSize(width: 72, height: 72))
     
     doneButton.g_pin(on: .centerY)
     doneButton.g_pin(on: .right, constant: -38)
@@ -93,6 +93,7 @@ class CameraView: UIView, UIGestureRecognizerDelegate {
     rotateOverlayView.g_pinEdges()
     blurView.g_pinEdges()
     shutterOverlayView.g_pinEdges()
+    shutterOverlayView.frame.size = CGSize.init(width: 54, height: 54)
   }
 
   func setupPreviewLayer(_ session: AVCaptureSession) {
@@ -157,9 +158,9 @@ class CameraView: UIView, UIGestureRecognizerDelegate {
 
   func makeFlashButton() -> TripleButton {
     let states: [TripleButton.State] = [
-      TripleButton.State(title: "Gallery.Camera.Flash.Off".g_localize(fallback: "OFF"), image: Bundle.image("gallery_camera_flash_off")!),
-      TripleButton.State(title: "Gallery.Camera.Flash.On".g_localize(fallback: "ON"), image: Bundle.image("gallery_camera_flash_on")!),
-      TripleButton.State(title: "Gallery.Camera.Flash.Auto".g_localize(fallback: "AUTO"), image: Bundle.image("gallery_camera_flash_auto")!)
+      TripleButton.State( image: Bundle.image("gallery_camera_flash_off")!),
+      TripleButton.State( image: Bundle.image("gallery_camera_flash_on")!),
+      TripleButton.State( image: Bundle.image("gallery_camera_flash_auto")!)
     ]
 
     let button = TripleButton(states: states)
