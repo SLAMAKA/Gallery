@@ -22,10 +22,6 @@ public class DropdownController: UIViewController {
         setup()
         imageLibrary.reload { [ unowned self ]_ in
             self.albums = self.imageLibrary.albums
-
-            if let album = self.albums.first {
-                self.openImagesContoller(with: album, false)
-            }
             self.tableView.reloadData()
         }
     }

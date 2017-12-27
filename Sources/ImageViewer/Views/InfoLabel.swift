@@ -17,7 +17,7 @@ open class InfoLabel: UILabel {
   open var numberOfVisibleLines = 2
 
   var ellipsis: String {
-    return "... \(MediaViewerConfig.InfoLabel.ellipsisText)"
+    return "..."
   }
 
   open weak var delegate: InfoLabelDelegate?
@@ -101,16 +101,16 @@ open class InfoLabel: UILabel {
   }
 
   fileprivate func updateText(_ string: String) {
-    let attributedString = NSMutableAttributedString(string: string,
-      attributes: MediaViewerConfig.InfoLabel.textAttributes)
-
-    if string.range(of: ellipsis) != nil {
-      let range = (string as NSString).range(of: ellipsis)
-      attributedString.addAttribute(NSForegroundColorAttributeName,
-        value: MediaViewerConfig.InfoLabel.ellipsisColor, range: range)
-    }
-
-    attributedText = attributedString
+//    let attributedString = NSMutableAttributedString(string: string,
+//      attributes: MediaViewerConfig.InfoLabel.textAttributes)
+//
+//    if string.range(of: ellipsis) != nil {
+//      let range = (string as NSString).range(of: ellipsis)
+//      attributedString.addAttribute(NSForegroundColorAttributeName,
+//        value: MediaViewerConfig.InfoLabel.ellipsisColor, range: range)
+//    }
+//
+//    attributedText = attributedString
   }
 
   // MARK: - Helper methods

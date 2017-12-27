@@ -69,6 +69,7 @@ open class MediaViewerConfig {
     public struct ConversationNameLabel {
         public static var enabled = true
         public static var text: String = NSLocalizedString("Conversation label", comment: "")
+        public static var image: UIImage? = Bundle.image("arrow_up")!
         
         public static var textAttributes = [
             NSFontAttributeName: UIFont.boldSystemFont(ofSize: 14),
@@ -169,7 +170,7 @@ open class MediaViewerConfig {
     public static var enabled = true
     public static var size: CGSize? = CGSize.init(width: 22, height: 22)
     public static var text = NSLocalizedString("Delete", comment: "")
-    public static var image: UIImage? = Bundle.image("gallery_close")!
+    public static var image: UIImage? = Bundle.image("photo_delete")!
 
     public static var textAttributes = [
       NSFontAttributeName: UIFont.systemFont(ofSize: 16),
@@ -182,17 +183,6 @@ open class MediaViewerConfig {
     ]
   }
 
-  public struct InfoLabel {
-    public static var enabled = true
-    public static var textColor = UIColor.white
-    public static var ellipsisText = NSLocalizedString("Show more", comment: "")
-    public static var ellipsisColor = UIColor(hex: "899AB9")
-
-    public static var textAttributes = [
-      NSFontAttributeName: UIFont.systemFont(ofSize: 12),
-      NSForegroundColorAttributeName: UIColor(hex: "DBDBDB")
-    ]
-  }
 
   public struct Zoom {
     public static var minimumScale: CGFloat = 1.0

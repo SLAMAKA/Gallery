@@ -1,21 +1,28 @@
 import UIKit
 
 protocol HeaderViewDelegate: class {
-
+    
 }
 
 open class HeaderView: UIView {
-
-  weak var delegate: HeaderViewDelegate?
-
+    
+    weak var delegate: HeaderViewDelegate?
+    
     open fileprivate(set) lazy var conversationLabel: UILabel = { [unowned self] in
         let label = UILabel.init(frame: CGRect.zero)
-                
-        label.attributedText = NSAttributedString.init(string: MediaViewerConfig.ConversationNameLabel.text,
-                                                       attributes: MediaViewerConfig.ConversationNameLabel.textAttributes)
+        
+        let fullString = NSMutableAttributedString.init()
+        let image1Attachment = NSTextAttachment.init()
+        image1Attachment.image = MediaViewerConfig.ConversationNameLabel.image!
+        fullString.append(NSAttributedString.init(attachment: image1Attachment))
+        fullString.append(NSAttributedString.init(string: " " + MediaViewerConfig.ConversationNameLabel.text,
+                                                  attributes: MediaViewerConfig.ConversationNameLabel.textAttributes))
+        
+        
+        label.attributedText = fullString
         label.sizeToFit()
         return label
-    }()
+        }()
     
     
     open fileprivate(set) lazy var collectionView: UICollectionView = {
@@ -35,26 +42,26 @@ open class HeaderView: UIView {
     open fileprivate(set) lazy var fileCountLabel: UILabel = { [unowned self] in
         let label = UILabel.init(frame: CGRect.zero)
         label.attributedText = NSAttributedString.init(string: "\(Cart.shared.images.count) selected",
-                                                       attributes: MediaViewerConfig.SelectedFileCountLabel.textAttributes)
+            attributes: MediaViewerConfig.SelectedFileCountLabel.textAttributes)
         label.sizeToFit()
         return label
         }()
     
     fileprivate let gradientColors = [UIColor(hex: "000000").alpha(0.48), UIColor(hex: "000000").alpha(0.48)]
     
-  // MARK: - Initializers
-
-  public init() {
-    super.init(frame: CGRect.zero)
-    backgroundColor = UIColor.clear
-    _ = self.addGradientLayer(self.gradientColors)
-    [conversationLabel, collectionView, fileCountLabel].forEach { addSubview($0) }
-  }
-
-  public required init?(coder aDecoder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
-  }
-
+    // MARK: - Initializers
+    
+    public init() {
+        super.init(frame: CGRect.zero)
+        backgroundColor = UIColor.clear
+        _ = self.addGradientLayer(self.gradientColors)
+        [conversationLabel, collectionView, fileCountLabel].forEach { addSubview($0) }
+    }
+    
+    public required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     func updateSelectedCountLabel(){
         self.fileCountLabel.attributedText = NSAttributedString.init(string: "\(Cart.shared.images.count) selected",
             attributes: MediaViewerConfig.SelectedFileCountLabel.textAttributes)
@@ -73,38 +80,26 @@ open class HeaderView: UIView {
         }
         
         self.collectionView.scrollToItem(at: IndexPath.init(row: position, section: 0), at: UICollectionViewScrollPosition.centeredHorizontally, animated: true)
-        
     }
-    
-//    func configureFrameView (_ cell: ImageCell, indexPath: IndexPath) {
-//        let item = items[ (indexPath as NSIndexPath).item ]
-//
-//        if let index = Cart.shared.images.index(of: item) {
-//            cell.frameView.g_quickFade()
-//            cell.frameView.label.text = "\(index + 1)"
-//        } else {
-//            cell.frameView.alpha = 0
-//        }
-//    }
 }
 
 // MARK: - LayoutConfigurable
 
 extension HeaderView: LayoutConfigurable {
-
-  public func configureLayout() {
-    self.conversationLabel.frame.origin = CGPoint.init(x: 16, y: 16)
     
-    if Cart.shared.images.count <= 1 {
-        self.collectionView.isHidden = true
-        self.fileCountLabel.isHidden = true
-    } else {
-        self.fileCountLabel.frame.origin = CGPoint.init(x: self.bounds.width - self.fileCountLabel.bounds.width - 16, y: 16)
-        self.collectionView.frame = CGRect.init(origin: CGPoint.init(x: 2, y: 38), size: CGSize.init(width: self.bounds.width - 4, height: 56))
-        self.collectionView.reloadData()
+    public func configureLayout() {
+        self.conversationLabel.frame.origin = CGPoint.init(x: 16, y: 16)
+        
+        if Cart.shared.images.count <= 1 {
+            self.collectionView.isHidden = true
+            self.fileCountLabel.isHidden = true
+        } else {
+            self.fileCountLabel.frame.origin = CGPoint.init(x: self.bounds.width - self.fileCountLabel.bounds.width - 16, y: 16)
+            self.collectionView.frame = CGRect.init(origin: CGPoint.init(x: 2, y: 38), size: CGSize.init(width: self.bounds.width - 4, height: 56))
+            self.collectionView.reloadData()
+        }
+        self.resizeGradientLayer()
     }
-    self.resizeGradientLayer()
-  }
 }
 
 extension HeaderView: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
