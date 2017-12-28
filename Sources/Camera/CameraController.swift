@@ -3,7 +3,7 @@ import AVFoundation
 
 public protocol CameraControllerDelegate: class {
     func didCancelCameraController(_ controller: CameraController)
-    func cameraController(_ controller: CameraController, didSelectImages images: [UIImage])
+    func cameraController(_ controller: CameraController, didSelectImages images: [URL])
 }
 
 public class CameraController: UIViewController {
@@ -216,11 +216,11 @@ extension CameraController: MediaViewerControllerDelegate {
     }
     
     public func mediaViewerControllerDidSend(_ controller: MediaViewerController) {
-        
+        Cart.shared.assetsUrls { [weak self](urls) in
             controller.dismiss(animated: true, completion: nil)
-            self.delegate?.cameraController(self, didSelectImages: Cart.shared.UIImages())
+            self?.delegate?.cameraController(self!, didSelectImages: urls)
             Cart.shared.images.removeAll()
-        
+        }
     }
     
     public func mediaViewerControllerWillCancel(_ controller: MediaViewerController) {

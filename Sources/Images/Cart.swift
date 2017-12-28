@@ -12,7 +12,7 @@ public class Cart {
     public static let shared = Cart()
     
     public var images: [Image] = []
-    fileprivate var lightBoxUIImages: [UIImage] = []
+    fileprivate var selectedImages: [UIImage] = []
     public var video: Video?
     var delegates: NSHashTable<AnyObject> = NSHashTable.weakObjects()
     
@@ -77,8 +77,8 @@ public class Cart {
     // MARK: - UIImages
     
     func UIImages() -> [UIImage] {
-        lightBoxUIImages = Fetcher.fetchImages(images.map({ $0.asset }))
-        return lightBoxUIImages
+        selectedImages = Fetcher.fetchImages(images.map({ $0.asset }))
+        return selectedImages
     }
     
     func singleImage(_ asset: PHAsset) -> UIImage? {
@@ -88,17 +88,58 @@ public class Cart {
     func reload(_ UIImages: [UIImage]) {
         var changedImages: [Image] = []
         
-        lightBoxUIImages.filter {
+        selectedImages.filter {
             return UIImages.contains($0)
             }.flatMap {
-                return lightBoxUIImages.index(of: $0)
+                return selectedImages.index(of: $0)
             }.forEach { index in
                 if index < images.count {
                     changedImages.append(images[index])
                 }
         }
         
-        lightBoxUIImages = []
+        selectedImages = []
         reload(changedImages)
+    }
+    
+    func assetsUrls(complete: @escaping ([URL])->()) {
+        var imagesUrl = [URL]()
+        for (index, value) in self.images.map({$0.asset}).enumerated() {
+            value.getURL(completionHandler: { (url) in
+                if url != nil {
+                    imagesUrl.append(url!)
+                }
+                
+                if index + 1 == self.images.count {
+                    complete(imagesUrl)
+                }
+            })
+        }
+    }
+}
+
+extension PHAsset {
+    
+    func getURL(completionHandler : @escaping ((_ responseURL : URL?) -> Void)){
+        if self.mediaType == .image {
+            let options: PHContentEditingInputRequestOptions = PHContentEditingInputRequestOptions()
+            options.canHandleAdjustmentData = {(adjustmeta: PHAdjustmentData) -> Bool in
+                return true
+            }
+            self.requestContentEditingInput(with: options, completionHandler: {(contentEditingInput: PHContentEditingInput?, info: [AnyHashable : Any]) -> Void in
+                completionHandler(contentEditingInput!.fullSizeImageURL as URL?)
+            })
+        } else if self.mediaType == .video {
+            let options: PHVideoRequestOptions = PHVideoRequestOptions()
+            options.version = .original
+            PHImageManager.default().requestAVAsset(forVideo: self, options: options, resultHandler: {(asset: AVAsset?, audioMix: AVAudioMix?, info: [AnyHashable : Any]?) -> Void in
+                if let urlAsset = asset as? AVURLAsset {
+                    let localVideoUrl: URL = urlAsset.url as URL
+                    completionHandler(localVideoUrl)
+                } else {
+                    completionHandler(nil)
+                }
+            })
+        }
     }
 }

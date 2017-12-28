@@ -90,7 +90,8 @@ open class MediaViewerController: UIViewController {
             if currentPage == numberOfPages - 1 {
                 seen = true
             }
-
+            
+//            self.headerView.collectionView
             delegate?.mediaViewerController(self, didMoveToPage: currentPage)
 
             if let image = pageViews[currentPage].imageView.image, dynamicBackground {
@@ -436,7 +437,6 @@ extension MediaViewerController: FooterViewDelegate {
     }
 
     public func footerView(_ footerView: FooterView, didPressSendButton closeButton: UIButton) {
-        EventHub.shared.doneWithImages?()
         self.delegate?.mediaViewerControllerDidSend(self)
     }
 }

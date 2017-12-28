@@ -2,7 +2,7 @@ import UIKit
 import Photos
 
 public protocol DropdownControllerDelegate: class {
-    func dropdownController(_ controller: DropdownController, didSelectImages images: [UIImage])
+    func dropdownController(_ controller: DropdownController, didSelectImages images: [URL])
     func dropdownController(_ controller: DropdownController, didSelectVideo video: Video)
     func dropdownControllerDidCancel(_ controller: DropdownController)
 }
@@ -46,11 +46,15 @@ public class DropdownController: UIViewController {
         }
         
         EventHub.shared.doneWithImages = { [weak self] in
-            if let strongSelf = self {
-                strongSelf.dismiss(animated: true, completion: nil)
-                strongSelf.delegate?.dropdownController(strongSelf, didSelectImages: Cart.shared.UIImages())
-                Cart.shared.images.removeAll()
-            }
+            
+            Cart.shared.assetsUrls(complete: { (urls) in
+                if let strongSelf = self {
+                    strongSelf.dismiss(animated: true, completion: nil)
+                    strongSelf.delegate?.dropdownController(strongSelf, didSelectImages: urls)
+                    Cart.shared.images.removeAll()
+                }
+            })
+            
         }
         
         EventHub.shared.doneWithVideos = { [weak self] in

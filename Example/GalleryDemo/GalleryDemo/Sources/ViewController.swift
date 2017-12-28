@@ -30,9 +30,10 @@ class ViewController: UIViewController {
   }
   
   func buttonTouched(_ button: UIButton) {
-//    let controller = DropdownController()
-//    controller.delegate = self
-//    let navigationController = UINavigationController.init(rootViewController: controller)
+    //    let controller = DropdownController()
+    //    controller.delegate = self
+    //    let navigationController = UINavigationController.init(rootViewController: controller)
+    //    self.present(navigationController, animated: true, completion: nil)
     
     let camera = CameraController()
     camera.delegate = self
@@ -68,29 +69,14 @@ class ViewController: UIViewController {
   func galleryController(_ controller: GalleryController, didSelectImages images: [UIImage]){
     print(images.count)
   }
-  
-  //  func galleryController(_ controller: GalleryController, requestLightbox images: [UIImage]) {
-  //    controller.dismiss(animated: true, completion: nil)
-  //    gallery = nil
-  //  }
-  
-  //  func galleryController(_ controller: GalleryController, requestLightbox images: [UIImage]) {
-  //    LightboxConfig.DeleteButton.enabled = true
-  //
-  //    let lightbox = LightboxController(images: images.map({ LightboxImage(image: $0) }), startIndex: 0)
-  //    lightbox.dismissalDelegate = self
-  //
-  //    controller.dismiss(animated: true, completion: nil)
-  ////  }
 }
 
-
-
 extension ViewController: DropdownControllerDelegate{
-  
-  func dropdownController(_ controller: DropdownController, didSelectImages images: [UIImage]){
-      controller.dismiss(animated: true, completion: nil)
-    print("dropdownController(_ controller: DropdownController, didSelectImages images: [UIImage])")
+  func dropdownController(_ controller: DropdownController, didSelectImages images: [URL]) {
+    images.forEach { (url) in
+      print(url)
+    }
+    controller.dismiss(animated: true, completion: nil)
   }
   
   func dropdownController(_ controller: DropdownController, didSelectVideo video: Video){
@@ -102,12 +88,12 @@ extension ViewController: DropdownControllerDelegate{
     controller.dismiss(animated: true, completion: nil)
     print("func dropdownControllerDidCancel(_ controller: DropdownController)")
   }
-  
 }
 
 extension ViewController: CameraControllerDelegate {
-  func cameraController(_ controller: CameraController, didSelectImages images: [UIImage]) {
-    print("dropdownController(_ controller: CameraController, didSelectImage image: UIImage)")
+
+  func cameraController(_ controller: CameraController, didSelectImages images: [URL]) {
+    images.forEach({print($0)})
     controller.dismiss(animated: true, completion: nil)
   }
   
@@ -115,6 +101,4 @@ extension ViewController: CameraControllerDelegate {
     print("didCancelCameraController(_ controller: CameraController)")
     controller.dismiss(animated: true, completion: nil)
   }
-  
-
 }
