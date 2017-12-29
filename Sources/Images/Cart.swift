@@ -102,19 +102,15 @@ public class Cart {
         reload(changedImages)
     }
     
-    func assetsUrls(complete: @escaping ([URL])->()) {
-        var imagesUrl = [URL]()
-        for (index, value) in self.images.map({$0.asset}).enumerated() {
-            value.getURL(completionHandler: { (url) in
-                if url != nil {
-                    imagesUrl.append(url!)
-                }
-                
-                if index + 1 == self.images.count {
-                    complete(imagesUrl)
-                }
-            })
+    func assetsUrls() -> [String] {
+        var imagesUrl = [String]()
+        let fileManager = AppFileManager()
+        Fetcher.fetchImages(self.images.map({$0.asset})).forEach { (image) in
+            if let path = fileManager.saveImageIntDirectory(image) {
+                imagesUrl.append(path)
+            }
         }
+        return imagesUrl
     }
 }
 

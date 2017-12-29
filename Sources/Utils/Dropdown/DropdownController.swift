@@ -2,13 +2,13 @@ import UIKit
 import Photos
 
 public protocol DropdownControllerDelegate: class {
-    func dropdownController(_ controller: DropdownController, didSelectImages images: [URL])
+    func dropdownController(_ controller: DropdownController, didSelectImages images: [String])
     func dropdownController(_ controller: DropdownController, didSelectVideo video: Video)
     func dropdownControllerDidCancel(_ controller: DropdownController)
 }
 
 public class DropdownController: UIViewController {
-
+    
     lazy var tableView: UITableView = self.makeTableView()
     var animating: Bool = false
     var expanding: Bool = false
@@ -16,7 +16,7 @@ public class DropdownController: UIViewController {
     let imageLibrary = ImagesLibrary.init()
     var topConstraint: NSLayoutConstraint?
     public weak var delegate: DropdownControllerDelegate?
-
+    
     open override func viewDidLoad () {
         super.viewDidLoad()
         setup()
@@ -25,9 +25,9 @@ public class DropdownController: UIViewController {
             self.tableView.reloadData()
         }
     }
-
+    
     // MARK: - Setup
-
+    
     func setup () {
         self.navigationItem.title = "Albums".g_localize(fallback: "Albums")
         view.addSubview(tableView)
@@ -46,15 +46,11 @@ public class DropdownController: UIViewController {
         }
         
         EventHub.shared.doneWithImages = { [weak self] in
-            
-            Cart.shared.assetsUrls(complete: { (urls) in
-                if let strongSelf = self {
-                    strongSelf.dismiss(animated: true, completion: nil)
-                    strongSelf.delegate?.dropdownController(strongSelf, didSelectImages: urls)
-                    Cart.shared.images.removeAll()
-                }
-            })
-            
+            if let strongSelf = self {
+                strongSelf.dismiss(animated: true, completion: nil)
+                strongSelf.delegate?.dropdownController(strongSelf, didSelectImages: Cart.shared.assetsUrls())
+                Cart.shared.images.removeAll()
+            }
         }
         
         EventHub.shared.doneWithVideos = { [weak self] in
@@ -69,7 +65,7 @@ public class DropdownController: UIViewController {
     func cancelButtonTupped(_ sender: Any){
         EventHub.shared.close?()
     }
-
+    
     func makeTableView () -> UITableView {
         let tableView = UITableView()
         tableView.tableFooterView = UIView()
@@ -78,7 +74,7 @@ public class DropdownController: UIViewController {
         tableView.delegate = self
         return tableView
     }
-
+    
     func openImagesContoller(with album: Album, _ animate: Bool = true){
         let imageViewcontroller = ImagesController.init()
         imageViewcontroller.selectedAlbum = album
@@ -87,29 +83,29 @@ public class DropdownController: UIViewController {
 }
 
 extension DropdownController: UITableViewDataSource, UITableViewDelegate {
-
+    
     // MARK: - UITableViewDataSource
-
+    
     public func tableView (_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return albums.count
     }
-
+    
     public func tableView (_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: AlbumCell.self), for: indexPath)
-        as! AlbumCell
-
+            as! AlbumCell
+        
         let album = albums[ (indexPath as NSIndexPath).row ]
         cell.configure(album)
         cell.backgroundColor = UIColor.clear
-
+        
         return cell
     }
-
+    
     // MARK: - UITableViewDelegate
-
+    
     public func tableView (_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-
+        
         self.openImagesContoller(with: albums[ (indexPath as NSIndexPath).row ])
     }
 }

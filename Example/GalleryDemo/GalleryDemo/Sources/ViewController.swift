@@ -72,9 +72,12 @@ class ViewController: UIViewController {
 }
 
 extension ViewController: DropdownControllerDelegate{
-  func dropdownController(_ controller: DropdownController, didSelectImages images: [URL]) {
+  func dropdownController(_ controller: DropdownController, didSelectImages images: [String]) {
+    
     images.forEach { (url) in
-      print(url)
+      if let image = AppFileManager().getImageFromTemporaryAndThenDeleteImage(url) {
+        print(image)
+      }
     }
     controller.dismiss(animated: true, completion: nil)
   }
@@ -92,8 +95,12 @@ extension ViewController: DropdownControllerDelegate{
 
 extension ViewController: CameraControllerDelegate {
 
-  func cameraController(_ controller: CameraController, didSelectImages images: [URL]) {
-    images.forEach({print($0)})
+  func cameraController(_ controller: CameraController, didSelectImages images: [String]) {
+    images.forEach { (url) in
+      if let image = AppFileManager().getImageFromTemporaryAndThenDeleteImage(url) {
+          print(image)
+      }
+    }
     controller.dismiss(animated: true, completion: nil)
   }
   
